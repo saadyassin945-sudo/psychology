@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Psychology</title>
+    <style>
+        /* ===== BASE ===== */
+        :root {
+            --bg1: #0a0e1a;
+            --bg2: #141e33;
+            --primary: #00d4ff;
+            --primary-dark: #0099cc;
+            --accent: #facc15;
+            --danger: #f87171;
+            --success: #34d399;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #e8edf5;
+            --muted: #94a3b8;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --glow: 0 0 30px rgba(0, 212, 255, 0.06);
+            --radius: 16px;
+            --header-bg: rgba(255, 255, 255, 0.03);
+            --header-border: rgba(255, 255, 255, 0.04);
+            --footer-border: rgba(255, 255, 255, 0.03);
+            --table-header-bg: rgba(0, 212, 255, 0.08);
+            --card-title-bg: rgba(0, 212, 255, 0.06);
+            --highlight-bg: #facc15;
+            --highlight-text: #0f172a;
+        }
+
+        [data-theme="light"] {
+            --bg1: #f0f4f8;
+            --bg2: #e2e8f0;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(0, 0, 0, 0.1);
+            --text: #0f172a;
+            --muted: #475569;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --glow: 0 0 30px rgba(0, 212, 255, 0.02);
+            --header-bg: rgba(255, 255, 255, 0.7);
+            --header-border: rgba(0, 0, 0, 0.04);
+            --footer-border: rgba(0, 0, 0, 0.04);
+            --table-header-bg: rgba(0, 212, 255, 0.12);
+            --card-title-bg: rgba(0, 212, 255, 0.08);
+            --highlight-bg: #facc15;
+            --highlight-text: #0f172a;
+        }
+
+        .highlight-text {
+            background-color: var(--highlight-bg);
+            color: var(--highlight-text);
+            padding: 0 4px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--bg1), var(--bg2), #0f1a2b);
+            min-height: 100vh;
+            color: var(--text);
+            padding: 16px 8px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            transition: background 0.4s ease;
+        }
+        .app { max-width: 1100px; width: 100%; }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 16px 16px;
+            background: var(--header-bg);
+            border-radius: 20px;
+            border: 1px solid var(--header-border);
+            backdrop-filter: blur(4px);
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 4px 25px rgba(0, 212, 255, 0.15);
+            transition: color 0.3s ease;
+        }
+        [data-theme="light"] .header h1 { color: #0f172a; text-shadow: none; }
+        .header h1 .highlight {
+            background: linear-gradient(135deg, var(--primary), #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header .sub {
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+        .header .creator {
+            color: var(--muted);
+            font-size: 0.75rem;
+            margin-top: 4px;
+        }
+        .header .creator .name { color: var(--text); font-weight: 700; }
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+        }
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            background: rgba(0, 212, 255, 0.08);
+            transform: scale(1.05);
+        }
+        [data-theme="light"] .theme-toggle {
+            background: rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        /* ===== TABS ===== */
+        .tabs-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 30px;
+            padding: 8px 14px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            line-height: 1.3;
+        }
+        .tab-btn:hover { border-color: var(--primary); color: var(--text); }
+        .tab-btn.active {
+            border-color: var(--primary);
+            background: rgba(0, 212, 255, 0.08);
+            color: var(--primary);
+        }
+        .tab-btn .en { display: block; font-size: 0.7rem; }
+        .tab-btn .ar { display: block; font-size: 0.55rem; opacity: 0.7; }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow), var(--glow);
+            padding: 18px 14px;
+            margin-bottom: 16px;
+            transition: background 0.3s ease, border 0.3s ease;
+            display: none;
+        }
+        .card.active { display: block; }
+        .card h2 {
+            font-size: 1.3rem;
+            color: var(--text);
+            border-right: 4px solid var(--primary);
+            padding-right: 12px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        /* ===== SLIDES ===== */
+        .slide-container {
+            position: relative;
+            min-height: 300px;
+        }
+        .slide {
+            display: none;
+            animation: fadeSlide 0.3s ease;
+        }
+        .slide.active { display: block; }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateX(15px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .slide-progress .bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            margin: 0 12px;
+            overflow: hidden;
+        }
+        .slide-progress .bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #818cf8);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        .slide-progress .count {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .slide-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        .slide-nav .btn-nav {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 80px;
+            text-align: center;
+        }
+        .slide-nav .btn-nav:hover:not(:disabled) {
+            background: rgba(0, 212, 255, 0.08);
+            border-color: var(--primary);
+        }
+        .slide-nav .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+        .slide-nav .btn-nav.primary {
+            background: var(--primary);
+            color: #0a0e1a;
+            border-color: var(--primary);
+        }
+        .slide-nav .btn-nav.primary:hover:not(:disabled) {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        [data-theme="light"] .slide-nav .btn-nav {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        /* ===== CARDS GRID ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+            margin-bottom: 8px;
+        }
+
+        .topic-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px 14px 12px;
+            transition: border-color 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .topic-card:hover { border-color: var(--primary); }
+
+        .topic-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--card-title-bg);
+        }
+        .topic-card .card-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--primary);
+            line-height: 1.4;
+            flex: 1;
+        }
+        .topic-card .card-title-ar {
+            color: var(--muted);
+            font-weight: 400;
+            display: none;
+        }
+        .topic-card .card-title-ar.show { display: inline; }
+        .topic-card .card-title-en { display: inline; }
+        .topic-card .card-title-en.hidden { display: none; }
+
+        .topic-card .translate-btn {
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 3px 12px;
+            font-size: 0.6rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-right: 8px;
+        }
+        .topic-card .translate-btn:hover {
+            background: rgba(0, 212, 255, 0.18);
+            border-color: var(--primary);
+        }
+        .topic-card .translate-btn.active {
+            background: rgba(0, 212, 255, 0.18);
+            border-color: var(--primary);
+        }
+
+        .topic-card .card-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+        }
+        .topic-card .card-items li {
+            padding: 4px 0 4px 0;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        [data-theme="light"] .topic-card .card-items li {
+            border-bottom-color: rgba(0, 0, 0, 0.04);
+        }
+        .topic-card .card-items li:last-child { border-bottom: none; }
+
+        /* ===== TTS: English text clickable ===== */
+        .topic-card .item-en {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            display: block;
+            text-align: left;
+            direction: ltr;
+            cursor: pointer;
+            transition: color 0.2s ease, background 0.2s ease;
+            border-radius: 4px;
+            padding: 1px 3px;
+            margin-left: -3px;
+        }
+        .topic-card .item-en:hover {
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.06);
+        }
+        .topic-card .item-en.speaking {
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.12);
+        }
+
+        .topic-card .item-ar {
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.6;
+            text-align: right;
+            direction: rtl;
+            display: none;
+            margin-top: 2px;
+            padding-right: 8px;
+            border-right: 2px solid rgba(0, 212, 255, 0.2);
+        }
+        .topic-card .item-ar.show { display: block; }
+
+        .topic-card .card-items.numbered {
+            counter-reset: item-counter;
+        }
+        .topic-card .card-items.numbered li {
+            padding-right: 28px;
+            position: relative;
+            counter-increment: item-counter;
+        }
+        .topic-card .card-items.numbered li::before {
+            content: counter(item-counter) "-";
+            position: absolute;
+            right: 2px;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* ===== TABLES ===== */
+        .info-table-wrap {
+            overflow-x: auto;
+            margin: 12px 0;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            grid-column: 1 / -1;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            min-width: 500px;
+        }
+        .info-table th {
+            background: var(--table-header-bg);
+            color: var(--primary);
+            padding: 8px 6px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            font-weight: 700;
+        }
+        .info-table td {
+            padding: 8px 6px;
+            border-bottom: 1px solid var(--card-border);
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        .info-table tr:last-child td { border-bottom: none; }
+        .info-table .ar-text {
+            border-right: none;
+            padding-right: 0;
+            margin-top: 2px;
+            font-size: 0.78rem;
+            display: block;
+            color: var(--muted);
+        }
+        .info-table .en-text {
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: color 0.2s ease, background 0.2s ease;
+            border-radius: 4px;
+            padding: 1px 3px;
+            margin-left: -3px;
+            display: inline-block;
+            text-align: left;
+            direction: ltr;
+        }
+        .info-table .en-text:hover {
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.06);
+        }
+        .info-table .en-text.speaking {
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.12);
+        }
+
+        @media (max-width: 600px) {
+            .cards-grid { grid-template-columns: 1fr; }
+            .info-table { font-size: 0.72rem; min-width: 350px; }
+            .topic-card .card-title { font-size: 0.85rem; }
+        }
+
+        .footer-credit {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.12);
+            font-size: 0.7rem;
+            margin-top: 24px;
+            padding: 10px 0;
+            border-top: 1px solid var(--footer-border);
+        }
+        [data-theme="light"] .footer-credit { color: rgba(0, 0, 0, 0.2); }
+        .footer-credit .name { color: var(--primary); font-weight: 600; }
+
+        @media (max-width: 768px) {
+            body { padding: 8px 4px; }
+            .header h1 { font-size: 1.4rem; }
+            .tab-btn { padding: 6px 10px; font-size: 0.6rem; }
+            .card { padding: 14px 10px; }
+            .card h2 { font-size: 1.1rem; }
+        }
+
+        .topic-card.full-width { grid-column: 1 / -1; }
+
+        /* ===== PDF DOWNLOAD BUTTON ===== */
+        .pdf-btn {
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid rgba(248, 113, 113, 0.3);
+            border-radius: 30px;
+            padding: 8px 18px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--danger);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        .pdf-btn:hover {
+            background: rgba(248, 113, 113, 0.2);
+            border-color: var(--danger);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app">
+        <div class="header">
+            <div class="header-top">
+                <div>
+                    <h1><span class="highlight">Psychology</span></h1>
+                    <div class="sub"></div>
+                    <div class="creator">Created by <span class="name">MR. YASSIN THARWAT</span></div>
+                </div>
+                <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="تبديل الوضع">☀</button>
+            </div>
+        </div>
+
+        <div class="tabs-wrap" id="tabsContainer"></div>
+        <div id="sectionsContainer"></div>
+        <div class="footer-credit">
+            Created by <span class="name">MR. YASSIN THARWAT</span>
+        </div>
+    </div>
+
+    <script>
+        // ================================================================
+        //  THEME
+        // ================================================================
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('themeToggle').textContent = theme === 'light' ? '☾' : '☀';
+            localStorage.setItem('theme', theme);
+            currentTheme = theme;
+        }
+        function toggleTheme() { applyTheme(currentTheme === 'dark' ? 'light' : 'dark'); }
+
+        // ================================================================
+        //  SLIDE SYSTEM
+        // ================================================================
+        let slideState = {};
+
+        function initSlideState(partId, totalSlides) {
+            slideState[partId] = { current: 0, total: totalSlides };
+        }
+
+        function renderSlide(partId, containerId) {
+            const state = slideState[partId];
+            if (!state) return;
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const slides = container.querySelectorAll('.slide');
+            slides.forEach((s, i) => s.classList.toggle('active', i === state.current));
+            const progressBar = container.querySelector('.slide-progress .fill');
+            const countSpan = container.querySelector('.slide-progress .count');
+            if (progressBar) progressBar.style.width = ((state.current + 1) / state.total * 100) + '%';
+            if (countSpan) countSpan.textContent = `${state.current + 1} / ${state.total}`;
+            const prevBtn = container.querySelector('.btn-nav.prev');
+            const nextBtn = container.querySelector('.btn-nav.next');
+            if (prevBtn) prevBtn.disabled = state.current === 0;
+            if (nextBtn) nextBtn.disabled = state.current === state.total - 1;
+        }
+
+        function goToSlide(partId, containerId, index) {
+            const state = slideState[partId];
+            if (!state) return;
+            if (index < 0) index = 0;
+            if (index >= state.total) index = state.total - 1;
+            state.current = index;
+            renderSlide(partId, containerId);
+        }
+
+        // ================================================================
+        //  HELPERS
+        // ================================================================
+        function stripHTML(html) {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || '';
+        }
+
+        function createSlideHTML(title, cardsHTML) {
+            return `
+                <div class="slide">
+                    <h3 style="font-size:1.1rem; color:var(--primary); margin-bottom:12px; border-right:3px solid var(--primary); padding-right:10px;">${title}</h3>
+                    <div class="cards-grid">${cardsHTML}</div>
+                </div>
+            `;
+        }
+
+        function card(title, items, arTitle = '') {
+            const cardId = 'c' + Math.random().toString(36).substr(2, 8);
+            const itemsHTML = items.map((item) => {
+                const en = item.en || item;
+                const ar = item.ar || '';
+                return `<li><span class="item-en" data-text="${stripHTML(en).replace(/"/g, '&quot;')}">${en}</span><span class="item-ar">${ar}</span></li>`;
+            }).join('');
+            const listClass = items.some(i => i.en && i.en.match(/^\d/)) ? 'card-items numbered' : 'card-items simple';
+            return `
+                <div class="topic-card" data-card="${cardId}">
+                    <div class="card-header">
+                        <span class="card-title">
+                            <span class="card-title-en">${title}</span>
+                            <span class="card-title-ar" id="${cardId}-title-ar">${arTitle}</span>
+                        </span>
+                        <button class="translate-btn" data-card="${cardId}" onclick="toggleCardTranslation('${cardId}')">ترجمة</button>
+                    </div>
+                    <ul class="${listClass}">${itemsHTML}</ul>
+                </div>
+            `;
+        }
+
+        function tableCard(title, tableHTML, arTitle = '') {
+            return `
+                <div class="topic-card full-width">
+                    <div class="card-header">
+                        <span class="card-title">
+                            <span class="card-title-en">${title}</span>
+                            <span class="card-title-ar" style="display:block;">${arTitle}</span>
+                        </span>
+                    </div>
+                    <div class="info-table-wrap">${tableHTML}</div>
+                </div>
+            `;
+        }
+
+        function cell(en, ar) {
+            return `<span class="en-text" data-text="${stripHTML(en).replace(/"/g, '&quot;')}">${en}</span><span class="ar-text">${ar}</span>`;
+        }
+
+        function toggleCardTranslation(cardId) {
+            const card = document.querySelector(`.topic-card[data-card="${cardId}"]`);
+            if (!card) return;
+            const arItems = card.querySelectorAll('.item-ar');
+            const titleAr = document.getElementById(`${cardId}-title-ar`);
+            const titleEn = card.querySelector('.card-title-en');
+            const btn = card.querySelector('.translate-btn');
+            const isVisible = arItems.length > 0 && arItems[0].classList.contains('show');
+            arItems.forEach(el => el.classList.toggle('show'));
+            if (titleAr) {
+                titleAr.classList.toggle('show');
+                if (titleEn) titleEn.classList.toggle('hidden');
+            }
+            if (btn) {
+                btn.textContent = isVisible ? 'ترجمة' : 'إخفاء';
+                btn.classList.toggle('active');
+            }
+        }
+
+        // ================================================================
+        //  TEXT-TO-SPEECH (TTS) - Click English text to speak
+        // ================================================================
+        function initTTS() {
+            if (!window.speechSynthesis) return;
+            if (window.speechSynthesis.getVoices().length === 0) {
+                window.speechSynthesis.onvoiceschanged = function() {};
+            }
+            document.addEventListener('click', function(e) {
+                const target = e.target.closest('.item-en, .en-text');
+                if (!target) return;
+                if (e.target.closest('.translate-btn')) return;
+                const text = (target.getAttribute('data-text') || target.textContent || '').trim();
+                if (!text) return;
+                speakText(text, target);
+            });
+        }
+
+        function speakText(text, element) {
+            const synth = window.speechSynthesis;
+            if (!synth) return;
+            synth.cancel();
+            document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            const voices = synth.getVoices();
+            const englishVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google'))
+                || voices.find(v => v.lang.startsWith('en-US'))
+                || voices.find(v => v.lang.startsWith('en'));
+            if (englishVoice) utterance.voice = englishVoice;
+
+            utterance.onstart = () => { if (element) element.classList.add('speaking'); };
+            utterance.onend = () => { if (element) element.classList.remove('speaking'); };
+            utterance.onerror = () => { if (element) element.classList.remove('speaking'); };
+            synth.speak(utterance);
+        }
+
+        // ================================================================
+        //  PDF DOWNLOAD
+        // ================================================================
+        function downloadPDF(sectionId) {
+            const sec = slidesData[sectionId];
+            if (!sec) return;
+
+            let allSlidesHTML = '';
+            sec.slides.forEach((slide) => {
+                let cardsHTML = '';
+                if (slide.cards) {
+                    slide.cards.forEach(c => { cardsHTML += c; });
+                }
+                allSlidesHTML += `
+                    <div class="pdf-slide">
+                        <div class="pdf-slide-header">
+                            <h2>${slide.title}</h2>
+                        </div>
+                        <div class="pdf-cards">${cardsHTML}</div>
+                    </div>
+                `;
+            });
+
+            const printWindow = window.open('', '_blank');
+            if (!printWindow) {
+                alert('يرجى السماح بالنوافذ المنبثقة لتحميل PDF');
+                return;
+            }
+
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html lang="ar" dir="rtl">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Psychology</title>
+                    <style>
+                        @page { margin: 12mm 10mm; size: A4; }
+                        * { margin: 0; padding: 0; box-sizing: border-box; }
+                        body {
+                            font-family: 'Segoe UI', Tahoma, sans-serif;
+                            font-size: 14px;
+                            color: #111;
+                            line-height: 1.55;
+                            padding: 0;
+                        }
+                        .pdf-subject-header {
+                            text-align: center;
+                            border-bottom: 3px solid #0099cc;
+                            padding-bottom: 10px;
+                            margin-bottom: 14px;
+                        }
+                        .pdf-subject-header h1 {
+                            font-size: 30px;
+                            color: #0099cc;
+                            font-weight: 800;
+                            letter-spacing: 2px;
+                        }
+                        .pdf-subject-header .creator {
+                            font-size: 13px;
+                            color: #666;
+                            margin-top: 4px;
+                        }
+                        .pdf-slide {
+                            margin-bottom: 16px;
+                            padding: 12px 14px;
+                            border: 1.5px solid #d0d0d0;
+                            border-radius: 8px;
+                            background: #fdfdfd;
+                            page-break-inside: avoid;
+                            break-inside: avoid;
+                        }
+                        .pdf-slide-header {
+                            margin-bottom: 10px;
+                            padding-bottom: 7px;
+                            border-bottom: 2px solid #0099cc;
+                        }
+                        .pdf-slide-header h2 {
+                            font-size: 18px;
+                            color: #0077aa;
+                            font-weight: 700;
+                            line-height: 1.4;
+                        }
+                        .pdf-cards {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 10px;
+                        }
+                        .pdf-cards .topic-card {
+                            border: 1.5px solid #e0e0e0;
+                            border-radius: 6px;
+                            padding: 10px 12px;
+                            background: #ffffff;
+                            break-inside: avoid;
+                            page-break-inside: avoid;
+                        }
+                        .pdf-cards .card-header {
+                            border-bottom: 2px solid #0099cc;
+                            padding-bottom: 5px;
+                            margin-bottom: 8px;
+                        }
+                        .pdf-cards .card-title {
+                            font-size: 15px;
+                            font-weight: 700;
+                            color: #0077aa;
+                            line-height: 1.4;
+                        }
+                        .pdf-cards .card-title-ar {
+                            font-size: 13px;
+                            color: #555;
+                            font-weight: 400;
+                            display: block;
+                            margin-top: 3px;
+                        }
+                        .pdf-cards .card-title-en { display: block; }
+                        .pdf-cards .translate-btn { display: none; }
+                        .pdf-cards ul { list-style: none; padding: 0; margin: 0; }
+                        .pdf-cards li {
+                            padding: 5px 0;
+                            border-bottom: 1px dotted #e5e5e5;
+                            font-size: 13.5px;
+                            line-height: 1.55;
+                        }
+                        .pdf-cards li:last-child { border-bottom: none; }
+                        .pdf-cards .item-en {
+                            font-weight: 600;
+                            display: block;
+                            text-align: left;
+                            direction: ltr;
+                            font-size: 13.5px;
+                            color: #111;
+                        }
+                        .pdf-cards .item-ar {
+                            display: block;
+                            color: #555;
+                            font-size: 13px;
+                            text-align: right;
+                            direction: rtl;
+                            padding-right: 8px;
+                            border-right: 3px solid #cce;
+                            margin-top: 4px;
+                            line-height: 1.55;
+                        }
+                        .pdf-cards .highlight-text {
+                            background: #facc15;
+                            color: #0f172a;
+                            padding: 0 3px;
+                            border-radius: 3px;
+                        }
+                        .pdf-cards .numbered { counter-reset: item-counter; }
+                        .pdf-cards .numbered li {
+                            padding-right: 24px;
+                            position: relative;
+                            counter-increment: item-counter;
+                        }
+                        .pdf-cards .numbered li::before {
+                            content: counter(item-counter) "-";
+                            position: absolute;
+                            right: 0;
+                            color: #0099cc;
+                            font-weight: 700;
+                            font-size: 13.5px;
+                        }
+                        .info-table-wrap { display: none; }
+                        @media print {
+                            body { font-size: 14px; }
+                            .pdf-slide { page-break-inside: avoid; break-inside: avoid; }
+                            @page { margin: 12mm 10mm; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="pdf-subject-header">
+                        <h1>PSYCHOLOGY</h1>
+                        <div class="creator">Created by MR. YASSIN THARWAT</div>
+                    </div>
+                    ${allSlidesHTML}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            setTimeout(() => {
+                printWindow.focus();
+                printWindow.print();
+            }, 600);
+        }
+
+        // ================================================================
+        //  DATA: PSYCHOLOGY - LECTURE 1
+        // ================================================================
+        const psychologyData = {
+            titleEn: 'Lecture 1',
+            titleAr: 'المحاضرة الأولى',
+            slides: [
+                {
+                    title: 'Definition of Psychology · تعريف علم النفس',
+                    cards: [
+                        card('Psychology Definition', [
+                            { en: 'Psychology can be defined as the <span class="highlight-text">scientific study of the behavior and mental processes</span>.', ar: 'يمكن تعريف علم النفس بأنه <span class="highlight-text">الدراسة العلمية للسلوك والعمليات العقلية</span>.' },
+                            { en: 'The word "psychology" comes from the Greek words "psyche," meaning life, and "logos," meaning explanation.', ar: 'كلمة "سيكولوجي" تأتي من الكلمات اليونانية "psyche" (بمعنى حياة) و "logos" (بمعنى تفسير).' }
+                        ], 'تعريف علم النفس')
+                    ]
+                },
+                {
+                    title: 'Fields of Psychology (1-4) · مجالات علم النفس',
+                    cards: [
+                        card('1- Biological Psychology', [
+                            { en: 'Physiological psychologists seek to discover the relationship between <span class="highlight-text">biological processes and behavior</span>.', ar: 'يسعى علماء النفس الفسيولوجيون إلى اكتشاف العلاقة بين <span class="highlight-text">العمليات البيولوجية والسلوك</span>.' }
+                        ], 'علم النفس البيولوجي'),
+                        card('2- Experimental Psychology', [
+                            { en: 'Study how people react to sensory stimuli, perceive the world, learn and remember, reason, and how they are motivated to action.', ar: 'دراسة كيفية استجابة الأفراد للمثيرات الحسية، وإدراكهم للعالم، وعمليات التعلم والتذكر والتفكير، وكيفية تحفيزهم للعمل.' }
+                        ], 'علم النفس التجريبي'),
+                        card('3- Developmental Psychology', [
+                            { en: 'Psychologists who are concerned with human development and the factors that shape behavior from birth to old age.', ar: 'علماء النفس المعنيون بالنمو البشري والعوامل التي تشكل السلوك منذ الولادة وحتى الشيخوخة.' }
+                        ], 'علم نفس النمو'),
+                        card('4- Social Psychology', [
+                            { en: 'Psychologists who are interested in the ways of interactions with other people, which influence attitude and behavior, public opinion.', ar: 'علماء النفس المهتمون بطرق التفاعل مع الآخرين، والتي تؤثر في الاتجاهات والسلوك والرأي العام.' }
+                        ], 'علم النفس الاجتماعي')
+                    ]
+                },
+                {
+                    title: 'Fields of Psychology (5-7) · مجالات علم النفس',
+                    cards: [
+                        card('5- Personality Psychology', [
+                            { en: 'Psychologists who study each individual\'s unique qualities and differences between other individuals.', ar: 'علماء النفس الذين يدرسون السمات الفريدة لكل فرد والاختلافات بينه وبين الأفراد الآخرين.' }
+                        ], 'علم نفس الشخصية'),
+                        card('6- Clinical Psychology', [
+                            { en: 'Apply psychological principles to the diagnosis and treatment of emotional and behavioral problems, mental illness, juvenile delinquency, criminal behavior, drug addiction, mental retardation, marital and family conflict.', ar: 'تطبيق المبادئ النفسية في تشخيص وعلاج المشكلات العاطفية والسلوكية، والأمراض العقلية، وجنوح الأحداث، والسلوك الإجرامي، وإدمان المخدرات، والتخلف العقلي، والنزاعات الزوجية والأسرية.' }
+                        ], 'علم النفس السريري'),
+                        card('7- Forensic Psychology', [
+                            { en: 'Psychologists who work within the legal and judicial systems. They may consult with police departments and prisons, to increase the understanding of human problems.', ar: 'علماء النفس الذين يعملون ضمن الأنظمة القانونية والقضائية. قد يقدمون المشورة لأقسام الشرطة والسجون، لزيادة فهم المشكلات البشرية.' }
+                        ], 'علم النفس الجنائي')
+                    ]
+                },
+                {
+                    title: 'Psychology In Relation To Medicine (Part 1) · علم النفس والطب',
+                    cards: [
+                        card('1- Behavioral Manifestation of Medical Illness', [
+                            { en: 'Some physical diseases and general medical conditions are presented with <span class="highlight-text">changes in behavior</span>.', ar: 'بعض الأمراض الجسدية والحالات الطبية العامة تظهر مصحوبة <span class="highlight-text">بتغيرات في السلوك</span>.' },
+                            { en: 'In many diseases of aging there are changes in behavior.', ar: 'في العديد من أمراض الشيخوخة تحدث تغيرات في السلوك.' },
+                            { en: 'In diseases of the brain, changes in behavior arise from damage to localized brain regions.', ar: 'في أمراض الدماغ، تنشأ التغيرات في السلوك من تلف في مناطق معينة من الدماغ.' }
+                        ], 'المظاهر السلوكية للمرض الطبي'),
+                        card('2- Human Behavior in the Etiology of Medical Problems', [
+                            { en: 'Many physical illnesses arise from <span class="highlight-text">what people do to themselves</span>.', ar: 'العديد من الأمراض الجسدية تنشأ مما <span class="highlight-text">يفعله الناس بأنفسهم</span>.' },
+                            { en: 'Human behavior such as smoking and reckless driving can result in serious and often fatal medical problems.', ar: 'السلوك البشري مثل التدخين والقيادة المتهورة يمكن أن يؤدي إلى مشاكل طبية خطيرة وغالباً مميتة.' }
+                        ], 'دور السلوك البشري في مسببات المشكلات الطبية')
+                    ]
+                },
+                {
+                    title: 'Psychology In Relation To Medicine (Part 2) · علم النفس والطب',
+                    cards: [
+                        card('3- Understanding Nurse/Doctor-Patient Relations', [
+                            { en: 'The relation between the Nurse/doctor and the patient lies at the <span class="highlight-text">heart of all medicine</span>.', ar: 'العلاقة بين الممرض/الطبيب والمريض تقع في <span class="highlight-text">قلب جميع ممارسات الطب</span>.' },
+                            { en: 'The quality of communication between doctor and patient can determine not only what problems are discussed but also the degree to which patients adhere to treatment.', ar: 'جودة التواصل بين الطبيب والمريض لا تحدد فقط المشكلات التي تتم مناقشتها، بل أيضاً درجة التزام المرضى بالعلاج.' }
+                        ], 'العلاقة بين الطبيب/الممرض والمريض'),
+                        card('4- Patient Response and Coping to Illness', [
+                            { en: 'Serious medical illnesses require <span class="highlight-text">psychological and social adjustment</span>.', ar: 'الأمراض الطبية الخطيرة تتطلب <span class="highlight-text">تكيفاً نفسياً واجتماعياً</span>.' }
+                        ], 'استجابة المريض والتكيف مع المرض'),
+                        card('5- Psychological Approaches in Treatment of Physical Illness', [
+                            { en: '<span class="highlight-text">Behavioral medicine</span> is concerned with the application of psychological approaches for treatment of physical disorders.', ar: '<span class="highlight-text">يهتم الطب السلوكي</span> بتطبيق المناهج النفسية لعلاج الاضطرابات الجسدية.' },
+                            { en: 'Such methods as talk, relaxation, emotional expression and direct behavior modification are used to treat hypertension, headache and pain.', ar: 'تُستخدم طرق مثل الحديث والاسترخاء والتعبير العاطفي وتعديل السلوك المباشر لعلاج ارتفاع ضغط الدم والصداع والألم.' },
+                            { en: 'Also some problems, such as respiratory and cardiovascular diseases could be affected by changing behavior such as stopping smoking, exercise and healthy diet.', ar: 'أيضاً بعض المشكلات، مثل أمراض الجهاز التنفسي والقلب والأوعية الدموية، يمكن أن تتأثر بتغيير السلوك مثل الإقلاع عن التدخين وممارسة الرياضة والنظام الغذائي الصحي.' }
+                        ], 'المناهج النفسية في علاج المرض الجسدي')
+                    ]
+                }
+            ]
+        };
+
+        // ================================================================
+        //  DATA: BRAIN AND BEHAVIOR - LECTURE 2
+        // ================================================================
+        const brainData = {
+            titleEn: 'Lecture 2',
+            titleAr: 'المحاضرة الثانية',
+            slides: [
+                {
+                    title: 'Introduction: The Nervous System · مقدمة: الجهاز العصبي',
+                    cards: [
+                        card('Functional Units of the Nervous System', [
+                            { en: 'The nervous system is a set of functional units classified as <span class="highlight-text">sensory, motor, and association areas</span>.', ar: 'الجهاز العصبي عبارة عن مجموعة من الوحدات الوظيفية تصنف إلى <span class="highlight-text">مناطق حسية وحركية ومناطق ارتباط</span>.' }
+                        ], 'الوحدات الوظيفية للجهاز العصبي')
+                    ]
+                },
+                {
+                    title: 'Sensory Systems · الأنظمة الحسية',
+                    cards: [
+                        card('Sensory Systems', [
+                            { en: 'Create an internal representation of the external world.', ar: 'تكوين تمثيل داخلي للعالم الخارجي.' },
+                            { en: 'A separate map is formed for each sensory modality.', ar: 'تتكون خريطة منفصلة لكل نمط حسي.' },
+                            { en: 'Sensory areas are areas of the cerebral cortex that receive impulses from sense receptors.', ar: 'المناطق الحسية هي مناطق القشرة الدماغية التي تستقبل النبضات من مستقبلات الحس.' }
+                        ], 'الأنظمة الحسية'),
+                        card('Sensory Pathways & Cortical Areas', [
+                            { en: 'Receptor cells respond to environmental stimuli and send impulses along sensory nerve fibers to the spinal cord, through the brain stem, to the thalamus, then to sensory areas.', ar: 'تستجيب الخلايا المستقبلة للمثيرات البيئية وترسل النبضات عبر الألياف العصبية الحسية إلى الحبل الشوكي، وعبر جذع الدماغ، إلى المهاد، ثم إلى المناطق الحسية.' },
+                            { en: 'Visual impulses end in the <span class="highlight-text">occipital lobe</span> (visual area).', ar: 'تنتهي النبضات البصرية في <span class="highlight-text">الفص القذالي</span> (المنطقة البصرية).' },
+                            { en: 'Auditory impulses end in the <span class="highlight-text">temporal lobe</span> (auditory area).', ar: 'تنتهي النبضات السمعية في <span class="highlight-text">الفص الصدغي</span> (المنطقة السمعية).' },
+                            { en: 'Body senses (touch, pressure, pain) send impulses to the front of the <span class="highlight-text">parietal lobe</span>, where body regions are mapped with different ratios.', ar: 'ترسل أحاسيس الجسم (اللمس، الضغط، الألم) نبضات إلى مقدمة <span class="highlight-text">الفص الجداري</span>، حيث تُرسم مناطق الجسم بنسب مختلفة.' },
+                            { en: 'Highly sensitive areas such as the face, lips, and fingers are over-represented in the body sense area.', ar: 'المناطق عالية الحساسية مثل الوجه والشفاه والأصابع تكون ممثلة بشكل مفرط في منطقة حس الجسم.' }
+                        ], 'المسارات الحسية والمناطق القشرية')
+                    ]
+                },
+                {
+                    title: 'Motor Systems & Association Areas · الأنظمة الحركية ومناطق الارتباط',
+                    cards: [
+                        card('Motor Systems', [
+                            { en: 'Enable persons to manipulate their environment and influence others’ behavior through communication.', ar: 'تمكّن الفرد من التعامل مع بيئته والتأثير في سلوك الآخرين من خلال التواصل.' },
+                            { en: 'Motor area controls voluntary movement.', ar: 'المنطقة الحركية تتحكم في الحركة الإرادية.' },
+                            { en: 'The decision of whether or not one should move is probably made toward the front of the <span class="highlight-text">frontal lobe</span>.', ar: 'قرار ما إذا كان ينبغي التحرك أم لا يُتخذ على الأرجح في مقدمة <span class="highlight-text">الفص الجبهي</span>.' }
+                        ], 'الأنظمة الحركية'),
+                        card('Association Areas', [
+                            { en: 'The remaining areas of the cerebrum are called association areas.', ar: 'المناطق المتبقية من المخ تُسمى مناطق الارتباط.' },
+                            { en: 'They are three: <span class="highlight-text">frontal, parietal, and temporal</span>.', ar: 'وهي ثلاث: <span class="highlight-text">الجبهي والجداري والصدغي</span>.' },
+                            { en: 'There is <span class="highlight-text">no occipital association area</span>.', ar: '<span class="highlight-text">لا توجد منطقة ارتباط قذالية</span>.' }
+                        ], 'مناطق الارتباط')
+                    ]
+                },
+                {
+                    title: 'Cerebral Cortex & Lobes · القشرة الدماغية والفصوص',
+                    cards: [
+                        card('Cerebral Cortex (Cerebrum)', [
+                            { en: 'Large convoluted outer covering of the brain; seat of cognitive functioning and voluntary action.', ar: 'غطاء خارجي كبير متعرج للدماغ؛ مقر الوظائف المعرفية والفعل الإرادي.' },
+                            { en: 'Formed of two symmetrical hemispheres (right & left) separated by a deep fissure running from front to back.', ar: 'يتكون من نصفين متماثلين (أيمن وأيسر) يفصل بينهما شق عميق يمتد من الأمام إلى الخلف.' },
+                            { en: 'Each cerebral hemisphere is formed of four lobes.', ar: 'يتكون كل نصف كرة مخية من أربعة فصوص.' }
+                        ], 'القشرة الدماغية (المخ)'),
+                        card('Frontal Lobe Functions', [
+                            { en: 'Voluntary movement', ar: 'الحركة الإرادية' },
+                            { en: 'Language production (left) and motor prosody (right)', ar: 'إنتاج اللغة (اليسار) والتنغيم الحركي (اليمين)' },
+                            { en: 'Motivation', ar: 'الدافعية' },
+                            { en: 'Regulation of autonomic nervous system and control of emotion', ar: 'تنظيم الجهاز العصبي اللاإرادي والتحكم في الانفعال' },
+                            { en: 'Executive function (capacity to carry out solutions, make decisions, and plan)', ar: 'الوظائف التنفيذية (القدرة على تنفيذ الحلول واتخاذ القرارات والتخطيط)' }
+                        ], 'وظائف الفص الجبهي'),
+                        card('Temporal Lobe Functions', [
+                            { en: 'Audition', ar: 'السمع' },
+                            { en: 'Memory', ar: 'الذاكرة' },
+                            { en: 'Emotion', ar: 'الانفعال' },
+                            { en: 'Sensory prosody (right)', ar: 'التنغيم الحسي (اليمين)' },
+                            { en: 'Language comprehension (left)', ar: 'فهم اللغة (اليسار)' },
+                            { en: 'Integration of all sensory modalities in relation to emotional', ar: 'تكامل جميع الأنماط الحسية فيما يتعلق بالانفعال' }
+                        ], 'وظائف الفص الصدغي'),
+                        card('Parietal Lobe Functions', [
+                            { en: 'Tactile sensation', ar: 'الإحساس اللمسي' },
+                            { en: 'Visuospatial function (right)', ar: 'الوظيفة البصرية المكانية (اليمين)' },
+                            { en: 'Reading (left)', ar: 'القراءة (اليسار)' },
+                            { en: 'Calculation (left)', ar: 'الحساب (اليسار)' }
+                        ], 'وظائف الفص الجداري'),
+                        card('Occipital Lobe Functions', [
+                            { en: 'Vision', ar: 'الإبصار' },
+                            { en: 'Visual perception', ar: 'الإدراك البصري' }
+                        ], 'وظائف الفص القذالي')
+                    ]
+                },
+                {
+                    title: 'Summary of Brain Lobes & Structures · ملخص الفصوص والتراكيب',
+                    cards: [
+                        tableCard('Brain Lobes and Structures', `
+                            <table class="info-table">
+                                <thead><tr><th>Structure</th><th>Functions</th></tr></thead>
+                                <tbody>
+                                    <tr><td>${cell('Frontal Lobe','الفص الجبهي')}</td><td>${cell('Voluntary movement; planning; intellect; problem solving; abstract reasoning','حركة إرادية؛ تخطيط؛ ذكاء؛ حل المشكلات؛ تفكير مجرد')}</td></tr>
+                                    <tr><td>${cell('Parietal Lobe','الفص الجداري')}</td><td>${cell('Touch perception; movement control; manipulation of objects','إدراك اللمس؛ التحكم في الحركة؛ التعامل مع الأشياء')}</td></tr>
+                                    <tr><td>${cell('Temporal Lobe','الفص الصدغي')}</td><td>${cell('Long-term memory; speech comprehension; object perception; face recognition; hearing','ذاكرة طويلة المدى؛ فهم الكلام؛ إدراك الأشياء؛ التعرف على الوجوه؛ السمع')}</td></tr>
+                                    <tr><td>${cell('Occipital Lobe','الفص القذالي')}</td><td>${cell('Visual reception; local orientation; shape perception','استقبال بصري؛ التوجه المكاني؛ إدراك الشكل')}</td></tr>
+                                    <tr><td>${cell('Cerebellum','المخيخ')}</td><td>${cell('Coordination; balance; reflex motor acts','التنسيق؛ التوازن؛ الأفعال الحركية الانعكاسية')}</td></tr>
+                                    <tr><td>${cell('Brain Stem','جذع الدماغ')}</td><td>${cell('Conduction; tract for pain, temperature, and pressure sensations','التوصيل؛ مسار إحساسات الألم ودرجة الحرارة والضغط')}</td></tr>
+                                </tbody>
+                            </table>
+                        `, 'فصوص الدماغ وتراكيبه')
+                    ]
+                },
+                {
+                    title: 'Limbic System, Hypothalamus, Thalamus & RAS · الجهاز الحوفي وما تحت المهاد والمهاد والجهاز الشبكي المنشط',
+                    cards: [
+                        card('Limbic System', [
+                            { en: 'A collection of subcortical structures including the amygdala, septal area, and hippocampus.', ar: 'مجموعة من التراكيب تحت القشرية تشمل اللوزة الدماغية والمنطقة الحاجزية والحصين.' },
+                            { en: 'Involved in emotional and motivational reactions, sexual and eating behavior.', ar: 'تشارك في التفاعلات الانفعالية والدافعية والسلوك الجنسي والغذائي.' },
+                            { en: 'Hippocampus is responsible for transfer of memories to long-term storage.', ar: 'الحصين مسؤول عن نقل الذكريات إلى التخزين طويل المدى.' }
+                        ], 'الجهاز الحوفي'),
+                        card('Hypothalamus', [
+                            { en: 'Small structure near the center of the brain; considered part of the limbic system.', ar: 'تركيب صغير قرب مركز الدماغ؛ يُعتبر جزءاً من الجهاز الحوفي.' },
+                            { en: 'Involved in feeding, drinking, temperature and sleep regulation, and regulation of the endocrine and autonomic systems.', ar: 'يشارك في تنظيم التغذية والشرب ودرجة الحرارة والنوم، وتنظيم الجهازين الصماوي واللاإرادي.' }
+                        ], 'ما تحت المهاد'),
+                        card('Thalamus', [
+                            { en: 'Final sensory relay station that projects sensory fibers to their proper location in the cerebrum.', ar: 'محطة الترحيل الحسية النهائية التي توجّه الألياف الحسية إلى موقعها المناسب في المخ.' },
+                            { en: 'May be involved in regulating sleep-wake cycles.', ar: 'قد يشارك في تنظيم دورات النوم واليقظة.' },
+                            { en: 'Sensory messages from the lower body, eyes, ears, and other senses (except smell) pass through the thalamus.', ar: 'تمر الرسائل الحسية من الجزء السفلي من الجسم والعينين والأذنين والحواس الأخرى (ما عدا الشم) عبر المهاد.' }
+                        ], 'المهاد'),
+                        card('Reticular Activating System (RAS)', [
+                            { en: 'A network of nerve fibers extending from the brain stem to the cerebrum.', ar: 'شبكة من الألياف العصبية تمتد من جذع الدماغ إلى المخ.' },
+                            { en: 'Involved in one’s level of arousal or activation.', ar: 'يشارك في مستوى الاستثارة أو التنشيط لدى الفرد.' },
+                            { en: 'Acts like a valve/filter that allows sensory messages to pass from lower centers to higher centers or shuts them off partially or totally.', ar: 'يعمل مثل صمام/مرشح يسمح بمرور الرسائل الحسية من المراكز الدنيا إلى المراكز العليا أو يغلقها جزئياً أو كلياً.' }
+                        ], 'الجهاز الشبكي المنشط (RAS)')
+                    ]
+                }
+            ]
+        };
+
+        // ================================================================
+        //  BUILD APP
+        // ================================================================
+        const slidesData = { psychology: psychologyData, brain: brainData };
+        const sectionOrder = ['psychology', 'brain'];
+
+        function renderSlideContent(slide) {
+            if (slide.cards && Array.isArray(slide.cards)) {
+                return createSlideHTML(slide.title, slide.cards.join(''));
+            }
+            return createSlideHTML(slide.title, '');
+        }
+
+        function buildApp() {
+            const tabsContainer = document.getElementById('tabsContainer');
+            const sectionsContainer = document.getElementById('sectionsContainer');
+
+            sectionOrder.forEach((secId, index) => {
+                const sec = slidesData[secId];
+                if (!sec) return;
+
+                const tab = document.createElement('button');
+                tab.className = 'tab-btn' + (index === 0 ? ' active' : '');
+                tab.innerHTML = `<span class="en">${sec.titleEn}</span><span class="ar">${sec.titleAr}</span>`;
+                tab.onclick = () => switchTab(secId, tab);
+                tabsContainer.appendChild(tab);
+
+                const cardEl = document.createElement('div');
+                cardEl.className = 'card' + (index === 0 ? ' active' : '');
+                cardEl.id = `section-${secId}`;
+
+                const slidesHTML = sec.slides.map(s => renderSlideContent(s)).join('');
+                const totalSlides = sec.slides.length;
+
+                cardEl.innerHTML = `
+                    <h2>${sec.titleEn} · ${sec.titleAr}</h2>
+                    <div style="text-align:center; margin-bottom:12px;">
+                        <button class="pdf-btn" onclick="downloadPDF('${secId}')">📄 تحميل المحاضرة PDF</button>
+                    </div>
+                    <div class="slide-container" id="slideContainer-${secId}">
+                        <div class="slide-progress">
+                            <span style="font-weight:600;">التقدم</span>
+                            <div class="bar"><div class="fill" style="width:0%;"></div></div>
+                            <span class="count">1 / ${totalSlides}</span>
+                        </div>
+                        ${slidesHTML}
+                        <div class="slide-nav">
+                            <button class="btn-nav prev" onclick="goToSlide('${secId}', 'slideContainer-${secId}', slideState['${secId}'].current - 1)">السابق</button>
+                            <button class="btn-nav next primary" onclick="goToSlide('${secId}', 'slideContainer-${secId}', slideState['${secId}'].current + 1)">التالي</button>
+                        </div>
+                    </div>
+                `;
+                sectionsContainer.appendChild(cardEl);
+
+                initSlideState(secId, totalSlides);
+                setTimeout(() => renderSlide(secId, `slideContainer-${secId}`), 50);
+            });
+
+            setTimeout(() => initTTS(), 200);
+        }
+
+        function switchTab(secId, tabEl) {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+            document.getElementById(`section-${secId}`).classList.add('active');
+            tabEl.classList.add('active');
+        }
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        applyTheme(localStorage.getItem('theme') || 'dark');
+        buildApp();
+
+        window.goToSlide = goToSlide;
+        window.slideState = slideState;
+        window.toggleTheme = toggleTheme;
+        window.toggleCardTranslation = toggleCardTranslation;
+        window.downloadPDF = downloadPDF;
+    </script>
+</body>
+</html>
