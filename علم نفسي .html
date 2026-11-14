@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Psychology</title>
+    <style>
+        /* ===== BASE ===== */
+        :root {
+            --bg1: #0a0e1a;
+            --bg2: #141e33;
+            --primary: #00d4ff;
+            --primary-dark: #0099cc;
+            --accent: #facc15;
+            --danger: #f87171;
+            --success: #34d399;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #e8edf5;
+            --muted: #94a3b8;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --glow: 0 0 30px rgba(0, 212, 255, 0.06);
+            --radius: 16px;
+            --header-bg: rgba(255, 255, 255, 0.03);
+            --header-border: rgba(255, 255, 255, 0.04);
+            --footer-border: rgba(255, 255, 255, 0.03);
+            --table-header-bg: rgba(0, 212, 255, 0.08);
+            --card-title-bg: rgba(0, 212, 255, 0.06);
+            --highlight-bg: #facc15;
+            --highlight-text: #0f172a;
+        }
+
+        [data-theme="light"] {
+            --bg1: #f0f4f8;
+            --bg2: #e2e8f0;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(0, 0, 0, 0.1);
+            --text: #0f172a;
+            --muted: #475569;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --glow: 0 0 30px rgba(0, 212, 255, 0.02);
+            --header-bg: rgba(255, 255, 255, 0.7);
+            --header-border: rgba(0, 0, 0, 0.04);
+            --footer-border: rgba(0, 0, 0, 0.04);
+            --table-header-bg: rgba(0, 212, 255, 0.12);
+            --card-title-bg: rgba(0, 212, 255, 0.08);
+            --highlight-bg: #facc15;
+            --highlight-text: #0f172a;
+        }
+
+        .highlight-text {
+            background-color: var(--highlight-bg);
+            color: var(--highlight-text);
+            padding: 0 4px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--bg1), var(--bg2), #0f1a2b);
+            min-height: 100vh;
+            color: var(--text);
+            padding: 16px 8px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            transition: background 0.4s ease;
+        }
+        .app { max-width: 1100px; width: 100%; }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 16px 16px;
+            background: var(--header-bg);
+            border-radius: 20px;
+            border: 1px solid var(--header-border);
+            backdrop-filter: blur(4px);
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 4px 25px rgba(0, 212, 255, 0.15);
+            transition: color 0.3s ease;
+        }
+        [data-theme="light"] .header h1 { color: #0f172a; text-shadow: none; }
+        .header h1 .highlight {
+            background: linear-gradient(135deg, var(--primary), #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header .sub {
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+        .header .creator {
+            color: var(--muted);
+            font-size: 0.75rem;
+            margin-top: 4px;
+        }
+        .header .creator .name { color: var(--text); font-weight: 700; }
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+        }
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            background: rgba(0, 212, 255, 0.08);
+            transform: scale(1.05);
+        }
+        [data-theme="light"] .theme-toggle {
+            background: rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        /* ===== TABS ===== */
+        .tabs-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 10px 16px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            line-height: 1.3;
+            min-width: 140px;
+        }
+        .tab-btn:hover { border-color: var(--primary); color: var(--text); }
+        .tab-btn.active {
+            border-color: var(--primary);
+            background: rgba(0, 212, 255, 0.08);
+            color: var(--primary);
+        }
+        .tab-btn .en { display: block; font-size: 0.75rem; font-weight: 800; color: var(--text); }
+        .tab-btn.active .en { color: var(--primary); }
+        .tab-btn .en-sub { display: block; font-size: 0.65rem; font-weight: 600; color: var(--primary); margin-top: 3px; }
+        .tab-btn .ar { display: block; font-size: 0.55rem; opacity: 0.75; margin-top: 4px; }
+        .tab-btn .ar-sub { display: block; font-size: 0.5rem; opacity: 0.55; }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow), var(--glow);
+            padding: 18px 14px;
+            margin-bottom: 16px;
+            transition: background 0.3s ease, border 0.3s ease;
+            display: none;
+        }
+        .card.active { display: block; }
+        .card h2 {
+            font-size: 1.3rem;
+            color: var(--text);
+            border-right: 4px solid var(--primary);
+            padding-right: 12px;
+            margin-bottom: 16px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+        .card h2 .lec-num { display: block; font-size: 1.35rem; color: var(--text); font-weight: 800; }
+        .card h2 .lec-title-en { display: block; font-size: 1rem; color: var(--primary); font-weight: 600; margin-top: 4px; }
+        .card h2 .lec-num-ar { display: block; font-size: 0.85rem; color: var(--muted); font-weight: 500; margin-top: 6px; }
+        .card h2 .lec-title-ar { display: block; font-size: 0.78rem; color: var(--muted); opacity: 0.85; }
+
+        /* ===== SLIDES ===== */
+        .slide-container {
+            position: relative;
+            min-height: 300px;
+        }
+        .slide {
+            display: none;
+            animation: fadeSlide 0.3s ease;
+        }
+        .slide.active { display: block; }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateX(15px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .slide-progress .bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            margin: 0 12px;
+            overflow: hidden;
+        }
+        .slide-progress .bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #818cf8);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        .slide-progress .count {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .slide-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        .slide-nav .btn-nav {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 80px;
+            text-align: center;
+        }
+        .slide-nav .btn-nav:hover:not(:disabled) {
+            background: rgba(0, 212, 255, 0.08);
+            border-color: var(--primary);
+        }
+        .slide-nav .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+        .slide-nav .btn-nav.primary {
+            background: var(--primary);
+            color: #0a0e1a;
+            border-color: var(--primary);
+        }
+        .slide-nav .btn-nav.primary:hover:not(:disabled) {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        [data-theme="light"] .slide-nav .btn-nav {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        /* ===== CARDS GRID ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+            margin-bottom: 8px;
+        }
+
+        .topic-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px 14px 12px;
+            transition: border-color 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .topic-card:hover { border-color: var(--primary); }
+
+        .topic-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--card-title-bg);
+        }
+        .topic-card .card-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--primary);
+            line-height: 1.4;
+            flex: 1;
+        }
+        .topic-card .card-title-ar {
+            color: var(--muted);
+            font-weight: 400;
+            display: none;
+        }
+        .topic-card .card-title-ar.show { display: inline; }
+        .topic-card .card-title-en { display: inline; }
+        .topic-card .card-title-en.hidden { display: none; }
+
+        .topic-card .translate-btn {
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 3px 12px;
+            font-size: 0.6rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-right: 8px;
+        }
+        .topic-card .translate-btn:hover {
+            background: rgba(0, 212, 255, 0.18);
+            border-color: var(--primary);
+        }
+        .topic-card .translate-btn.active {
+            background: rgba(0, 212, 255, 0.18);
+            border-color: var(--primary);
+        }
+
+        .topic-card .card-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+        }
+        .topic-card .card-items li {
+            padding: 4px 0 4px 0;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        [data-theme="light"] .topic-card .card-items li {
+            border-bottom-color: rgba(0, 0, 0, 0.04);
+        }
+        .topic-card .card-items li:last-child { border-bottom: none; }
+
+        /* ===== TTS ===== */
+        .topic-card .item-en {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            display: block;
+            text-align: left;
+            direction: ltr;
+            cursor: pointer;
+            transition: color 0.2s ease, background 0.2s ease;
+            border-radius: 4px;
+            padding: 1px 3px;
+            margin-left: -3px;
+        }
+        .topic-card .item-en:hover {
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.06);
+        }
+        .topic-card .item-en.speaking {
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.12);
+        }
+
+        .topic-card .item-ar {
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.6;
+            text-align: right;
+            direction: rtl;
+            display: none;
+            margin-top: 2px;
+            padding-right: 8px;
+            border-right: 2px solid rgba(0, 212, 255, 0.2);
+        }
+        .topic-card .item-ar.show { display: block; }
+
+        .topic-card .card-items.numbered {
+            counter-reset: item-counter;
+        }
+        .topic-card .card-items.numbered li {
+            padding-right: 28px;
+            position: relative;
+            counter-increment: item-counter;
+        }
+        .topic-card .card-items.numbered li::before {
+            content: counter(item-counter) "-";
+            position: absolute;
+            right: 2px;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* ===== TABLES ===== */
+        .info-table-wrap {
+            overflow-x: auto;
+            margin: 12px 0;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            grid-column: 1 / -1;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            min-width: 500px;
+        }
+        .info-table th {
+            background: var(--table-header-bg);
+            color: var(--primary);
+            padding: 8px 6px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            font-weight: 700;
+        }
+        .info-table td {
+            padding: 8px 6px;
+            border-bottom: 1px solid var(--card-border);
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        .info-table tr:last-child td { border-bottom: none; }
+        .info-table .ar-text {
+            border-right: none;
+            padding-right: 0;
+            margin-top: 2px;
+            font-size: 0.78rem;
+            display: block;
+            color: var(--muted);
+        }
+        .info-table .en-text {
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: color 0.2s ease, background 0.2s ease;
+            border-radius: 4px;
+            padding: 1px 3px;
+            margin-left: -3px;
+            display: inline-block;
+            text-align: left;
+            direction: ltr;
+        }
+        .info-table .en-text:hover {
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.06);
+        }
+        .info-table .en-text.speaking {
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.12);
+        }
+
+        @media (max-width: 600px) {
+            .cards-grid { grid-template-columns: 1fr; }
+            .info-table { font-size: 0.72rem; min-width: 350px; }
+            .topic-card .card-title { font-size: 0.85rem; }
+        }
+
+        .footer-credit {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.12);
+            font-size: 0.7rem;
+            margin-top: 24px;
+            padding: 10px 0;
+            border-top: 1px solid var(--footer-border);
+        }
+        [data-theme="light"] .footer-credit { color: rgba(0, 0, 0, 0.2); }
+        .footer-credit .name { color: var(--primary); font-weight: 600; }
+
+        @media (max-width: 768px) {
+            body { padding: 8px 4px; }
+            .header h1 { font-size: 1.4rem; }
+            .tab-btn { padding: 8px 10px; font-size: 0.6rem; min-width: 110px; }
+            .card { padding: 14px 10px; }
+            .card h2 { font-size: 1.1rem; }
+        }
+
+        .topic-card.full-width { grid-column: 1 / -1; }
+
+        /* ===== PDF DOWNLOAD BUTTON ===== */
+        .pdf-btn {
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid rgba(248, 113, 113, 0.3);
+            border-radius: 30px;
+            padding: 8px 18px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--danger);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        .pdf-btn:hover {
+            background: rgba(248, 113, 113, 0.2);
+            border-color: var(--danger);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app">
+        <div class="header">
+            <div class="header-top">
+                <div>
+                    <h1><span class="highlight">Psychology</span></h1>
+                    <div class="sub">علم النفس</div>
+                    <div class="creator">Created by <span class="name">MR. YASSIN THARWAT</span></div>
+                </div>
+                <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="تبديل الوضع">☀</button>
+            </div>
+        </div>
+
+        <div class="tabs-wrap" id="tabsContainer"></div>
+        <div id="sectionsContainer"></div>
+        <div class="footer-credit">
+            Created by <span class="name">MR. YASSIN THARWAT</span>
+        </div>
+    </div>
+
+    <script>
+        // ================================================================
+        //  THEME
+        // ================================================================
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('themeToggle').textContent = theme === 'light' ? '☾' : '☀';
+            localStorage.setItem('theme', theme);
+            currentTheme = theme;
+        }
+        function toggleTheme() { applyTheme(currentTheme === 'dark' ? 'light' : 'dark'); }
+
+        // ================================================================
+        //  SLIDE SYSTEM
+        // ================================================================
+        let slideState = {};
+
+        function initSlideState(partId, totalSlides) {
+            slideState[partId] = { current: 0, total: totalSlides };
+        }
+
+        function renderSlide(partId, containerId) {
+            const state = slideState[partId];
+            if (!state) return;
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const slides = container.querySelectorAll('.slide');
+            slides.forEach((s, i) => s.classList.toggle('active', i === state.current));
+            const progressBar = container.querySelector('.slide-progress .fill');
+            const countSpan = container.querySelector('.slide-progress .count');
+            if (progressBar) progressBar.style.width = ((state.current + 1) / state.total * 100) + '%';
+            if (countSpan) countSpan.textContent = `${state.current + 1} / ${state.total}`;
+            const prevBtn = container.querySelector('.btn-nav.prev');
+            const nextBtn = container.querySelector('.btn-nav.next');
+            if (prevBtn) prevBtn.disabled = state.current === 0;
+            if (nextBtn) nextBtn.disabled = state.current === state.total - 1;
+        }
+
+        function goToSlide(partId, containerId, index) {
+            const state = slideState[partId];
+            if (!state) return;
+            if (index < 0) index = 0;
+            if (index >= state.total) index = state.total - 1;
+            state.current = index;
+            renderSlide(partId, containerId);
+        }
+
+        // ================================================================
+        //  HELPERS
+        // ================================================================
+        function stripHTML(html) {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || '';
+        }
+
+        function createSlideHTML(title, cardsHTML) {
+            return `
+                <div class="slide">
+                    <h3 style="font-size:1.1rem; color:var(--primary); margin-bottom:12px; border-right:3px solid var(--primary); padding-right:10px;">${title}</h3>
+                    <div class="cards-grid">${cardsHTML}</div>
+                </div>
+            `;
+        }
+
+        function card(title, items, arTitle = '') {
+            const cardId = 'c' + Math.random().toString(36).substr(2, 8);
+            const itemsHTML = items.map((item) => {
+                const en = item.en || item;
+                const ar = item.ar || '';
+                return `<li><span class="item-en" data-text="${stripHTML(en).replace(/"/g, '&quot;')}">${en}</span><span class="item-ar">${ar}</span></li>`;
+            }).join('');
+            const listClass = items.some(i => i.en && i.en.match(/^\d/)) ? 'card-items numbered' : 'card-items simple';
+            return `
+                <div class="topic-card" data-card="${cardId}">
+                    <div class="card-header">
+                        <span class="card-title">
+                            <span class="card-title-en">${title}</span>
+                            <span class="card-title-ar" id="${cardId}-title-ar">${arTitle}</span>
+                        </span>
+                        <button class="translate-btn" data-card="${cardId}" onclick="toggleCardTranslation('${cardId}')">ترجمة</button>
+                    </div>
+                    <ul class="${listClass}">${itemsHTML}</ul>
+                </div>
+            `;
+        }
+
+        function tableCard(title, tableHTML, arTitle = '') {
+            return `
+                <div class="topic-card full-width">
+                    <div class="card-header">
+                        <span class="card-title">
+                            <span class="card-title-en">${title}</span>
+                            <span class="card-title-ar" style="display:block;">${arTitle}</span>
+                        </span>
+                    </div>
+                    <div class="info-table-wrap">${tableHTML}</div>
+                </div>
+            `;
+        }
+
+        function cell(en, ar) {
+            return `<span class="en-text" data-text="${stripHTML(en).replace(/"/g, '&quot;')}">${en}</span><span class="ar-text">${ar}</span>`;
+        }
+
+        function toggleCardTranslation(cardId) {
+            const card = document.querySelector(`.topic-card[data-card="${cardId}"]`);
+            if (!card) return;
+            const arItems = card.querySelectorAll('.item-ar');
+            const titleAr = document.getElementById(`${cardId}-title-ar`);
+            const titleEn = card.querySelector('.card-title-en');
+            const btn = card.querySelector('.translate-btn');
+            const isVisible = arItems.length > 0 && arItems[0].classList.contains('show');
+            arItems.forEach(el => el.classList.toggle('show'));
+            if (titleAr) {
+                titleAr.classList.toggle('show');
+                if (titleEn) titleEn.classList.toggle('hidden');
+            }
+            if (btn) {
+                btn.textContent = isVisible ? 'ترجمة' : 'إخفاء';
+                btn.classList.toggle('active');
+            }
+        }
+
+        // ================================================================
+        //  TEXT-TO-SPEECH (TTS)
+        // ================================================================
+        function initTTS() {
+            if (!window.speechSynthesis) return;
+            if (window.speechSynthesis.getVoices().length === 0) {
+                window.speechSynthesis.onvoiceschanged = function() {};
+            }
+            document.addEventListener('click', function(e) {
+                const target = e.target.closest('.item-en, .en-text');
+                if (!target) return;
+                if (e.target.closest('.translate-btn')) return;
+                const text = (target.getAttribute('data-text') || target.textContent || '').trim();
+                if (!text) return;
+                speakText(text, target);
+            });
+        }
+
+        function speakText(text, element) {
+            const synth = window.speechSynthesis;
+            if (!synth) return;
+            synth.cancel();
+            document.querySelectorAll('.speaking').forEach(el => el.classList.remove('speaking'));
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            const voices = synth.getVoices();
+            const englishVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google'))
+                || voices.find(v => v.lang.startsWith('en-US'))
+                || voices.find(v => v.lang.startsWith('en'));
+            if (englishVoice) utterance.voice = englishVoice;
+
+            utterance.onstart = () => { if (element) element.classList.add('speaking'); };
+            utterance.onend = () => { if (element) element.classList.remove('speaking'); };
+            utterance.onerror = () => { if (element) element.classList.remove('speaking'); };
+            synth.speak(utterance);
+        }
+
+        // ================================================================
+        //  PDF DOWNLOAD
+        // ================================================================
+        function downloadPDF(sectionId) {
+            const sec = slidesData[sectionId];
+            if (!sec) return;
+
+            let allSlidesHTML = '';
+            sec.slides.forEach((slide) => {
+                let cardsHTML = '';
+                if (slide.cards) {
+                    slide.cards.forEach(c => { cardsHTML += c; });
+                }
+                allSlidesHTML += `
+                    <div class="pdf-slide">
+                        <div class="pdf-slide-header">
+                            <h2>${slide.title}</h2>
+                        </div>
+                        <div class="pdf-cards">${cardsHTML}</div>
+                    </div>
+                `;
+            });
+
+            const printWindow = window.open('', '_blank');
+            if (!printWindow) {
+                alert('يرجى السماح بالنوافذ المنبثقة لتحميل PDF');
+                return;
+            }
+
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html lang="ar" dir="rtl">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>${sec.titleEn} — ${sec.titleNameEn}</title>
+                    <style>
+                        @page { margin: 12mm 10mm; size: A4; }
+                        * { margin: 0; padding: 0; box-sizing: border-box; }
+                        html, body {
+                            -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
+                        }
+                        body {
+                            font-family: 'Segoe UI', Tahoma, sans-serif;
+                            font-size: 13px;
+                            color: #111;
+                            line-height: 1.55;
+                            orphans: 2;
+                            widows: 2;
+                        }
+                        .pdf-subject-header {
+                            text-align: center;
+                            border-bottom: 3px solid #0099cc;
+                            padding-bottom: 10px;
+                            margin-bottom: 14px;
+                        }
+                        .pdf-subject-header h1 {
+                            font-size: 26px;
+                            color: #0099cc;
+                            font-weight: 800;
+                            letter-spacing: 2px;
+                        }
+                        .pdf-lec-num {
+                            font-size: 16px;
+                            color: #0077aa;
+                            font-weight: 700;
+                            margin-top: 8px;
+                        }
+                        .pdf-lec-title {
+                            font-size: 14px;
+                            color: #0f172a;
+                            font-weight: 600;
+                            margin-top: 2px;
+                        }
+                        .pdf-lec-num-ar {
+                            font-size: 12px;
+                            color: #555;
+                            margin-top: 6px;
+                        }
+                        .pdf-lec-title-ar {
+                            font-size: 11px;
+                            color: #777;
+                        }
+                        .pdf-subject-header .creator {
+                            font-size: 11px;
+                            color: #888;
+                            margin-top: 6px;
+                        }
+                        .pdf-slide {
+                            margin-bottom: 14px;
+                            padding: 0;
+                            page-break-inside: auto;
+                            break-inside: auto;
+                        }
+                        .pdf-slide-header {
+                            margin-bottom: 8px;
+                            padding-bottom: 5px;
+                            border-bottom: 2.5px solid #0099cc;
+                            page-break-after: avoid;
+                            break-after: avoid;
+                        }
+                        .pdf-slide-header h2 {
+                            font-size: 16px;
+                            color: #0077aa;
+                            font-weight: 700;
+                            line-height: 1.35;
+                        }
+                        .pdf-cards { display: block; }
+                        .pdf-cards .topic-card {
+                            display: block;
+                            border: 1.5px solid #e0e0e0;
+                            border-radius: 6px;
+                            padding: 8px 10px;
+                            background: #ffffff;
+                            margin-bottom: 8px;
+                            page-break-inside: auto;
+                            break-inside: auto;
+                        }
+                        .pdf-cards .card-header {
+                            border-bottom: 2px solid #0099cc;
+                            padding-bottom: 4px;
+                            margin-bottom: 6px;
+                            page-break-after: avoid;
+                            break-after: avoid;
+                        }
+                        .pdf-cards .card-title {
+                            font-size: 13.5px;
+                            font-weight: 700;
+                            color: #0077aa;
+                            line-height: 1.35;
+                        }
+                        .pdf-cards .card-title-ar {
+                            font-size: 12px;
+                            color: #555;
+                            font-weight: 400;
+                            display: block;
+                            margin-top: 2px;
+                        }
+                        .pdf-cards .card-title-en { display: block; }
+                        .pdf-cards .translate-btn { display: none; }
+                        .pdf-cards ul { list-style: none; padding: 0; margin: 0; }
+                        .pdf-cards li {
+                            padding: 4px 0;
+                            border-bottom: 1px dotted #e5e5e5;
+                            font-size: 12.5px;
+                            line-height: 1.5;
+                            page-break-inside: avoid;
+                            break-inside: avoid;
+                        }
+                        .pdf-cards li:last-child { border-bottom: none; }
+                        .pdf-cards .item-en {
+                            font-weight: 600;
+                            display: block;
+                            text-align: left;
+                            direction: ltr;
+                            font-size: 12.5px;
+                            color: #111;
+                        }
+                        .pdf-cards .item-ar {
+                            display: block;
+                            color: #555;
+                            font-size: 12px;
+                            text-align: right;
+                            direction: rtl;
+                            padding-right: 6px;
+                            border-right: 3px solid #cce;
+                            margin-top: 3px;
+                            line-height: 1.5;
+                        }
+                        .pdf-cards .highlight-text {
+                            background: #facc15;
+                            color: #0f172a;
+                            padding: 0 3px;
+                            border-radius: 3px;
+                        }
+                        .pdf-cards .numbered { counter-reset: item-counter; }
+                        .pdf-cards .numbered li {
+                            padding-right: 22px;
+                            position: relative;
+                            counter-increment: item-counter;
+                        }
+                        .pdf-cards .numbered li::before {
+                            content: counter(item-counter) "-";
+                            position: absolute;
+                            right: 0;
+                            color: #0099cc;
+                            font-weight: 700;
+                            font-size: 12.5px;
+                        }
+                        .info-table-wrap {
+                            margin: 8px 0;
+                            border: 1px solid #ccc;
+                            border-radius: 6px;
+                            overflow: visible;
+                            page-break-inside: auto;
+                            break-inside: auto;
+                        }
+                        .info-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            font-size: 12px;
+                            page-break-inside: auto;
+                        }
+                        .info-table thead { display: table-header-group; }
+                        .info-table tr {
+                            page-break-inside: avoid;
+                            break-inside: avoid;
+                        }
+                        .info-table th {
+                            background: #e6f4fa;
+                            color: #0077aa;
+                            padding: 5px 4px;
+                            text-align: center;
+                            border-bottom: 2px solid #0099cc;
+                            font-weight: 700;
+                        }
+                        .info-table td {
+                            padding: 5px 4px;
+                            border-bottom: 1px solid #e0e0e0;
+                            vertical-align: top;
+                            line-height: 1.45;
+                        }
+                        .info-table tr:last-child td { border-bottom: none; }
+                        .info-table .ar-text {
+                            display: block;
+                            margin-top: 2px;
+                            font-size: 11.5px;
+                            color: #666;
+                        }
+                        .info-table .en-text {
+                            font-size: 12px;
+                            display: inline-block;
+                            text-align: left;
+                            direction: ltr;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="pdf-subject-header">
+                        <h1>PSYCHOLOGY</h1>
+                        <div class="pdf-lec-num">${sec.titleEn}</div>
+                        <div class="pdf-lec-title">${sec.titleNameEn}</div>
+                        <div class="pdf-lec-num-ar">${sec.titleAr}</div>
+                        <div class="pdf-lec-title-ar">${sec.titleNameAr}</div>
+                        <div class="creator">Created by MR. YASSIN THARWAT</div>
+                    </div>
+                    ${allSlidesHTML}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            setTimeout(() => {
+                printWindow.focus();
+                printWindow.print();
+            }, 600);
+        }
+
+        // ================================================================
+        //  DATA: LECTURE 1 — INTRODUCTION TO PSYCHOLOGY
+        // ================================================================
+        const psychologyData = {
+            titleEn: 'Lecture 1',
+            titleAr: 'المحاضرة الأولى',
+            titleNameEn: 'Introduction to Psychology',
+            titleNameAr: 'مقدمة في علم النفس',
+            slides: [
+                {
+                    title: 'Definition of Psychology · تعريف علم النفس',
+                    cards: [
+                        card('Psychology Definition', [
+                            { en: 'Psychology can be defined as the <span class="highlight-text">scientific study of the behavior and mental processes</span>.', ar: 'يمكن تعريف علم النفس بأنه <span class="highlight-text">الدراسة العلمية للسلوك والعمليات العقلية</span>.' },
+                            { en: 'The word "psychology" comes from the Greek words "psyche," meaning life, and "logos," meaning explanation.', ar: 'كلمة "سيكولوجي" تأتي من الكلمات اليونانية "psyche" (بمعنى حياة) و "logos" (بمعنى تفسير).' }
+                        ], 'تعريف علم النفس')
+                    ]
+                },
+                {
+                    title: 'Fields of Psychology (1-4) · مجالات علم النفس',
+                    cards: [
+                        card('1- Biological Psychology', [
+                            { en: 'Physiological psychologists seek to discover the relationship between <span class="highlight-text">biological processes and behavior</span>.', ar: 'يسعى علماء النفس الفسيولوجيون إلى اكتشاف العلاقة بين <span class="highlight-text">العمليات البيولوجية والسلوك</span>.' }
+                        ], 'علم النفس البيولوجي'),
+                        card('2- Experimental Psychology', [
+                            { en: 'Study how people react to sensory stimuli, perceive the world, learn and remember, reason, and how they are motivated to action.', ar: 'دراسة كيفية استجابة الأفراد للمثيرات الحسية، وإدراكهم للعالم، وعمليات التعلم والتذكر والتفكير، وكيفية تحفيزهم للعمل.' }
+                        ], 'علم النفس التجريبي'),
+                        card('3- Developmental Psychology', [
+                            { en: 'Psychologists who are concerned with human development and the factors that shape behavior from birth to old age.', ar: 'علماء النفس المعنيون بالنمو البشري والعوامل التي تشكل السلوك منذ الولادة وحتى الشيخوخة.' }
+                        ], 'علم نفس النمو'),
+                        card('4- Social Psychology', [
+                            { en: 'Psychologists who are interested in the ways of interactions with other people, which influence attitude and behavior, public opinion.', ar: 'علماء النفس المهتمون بطرق التفاعل مع الآخرين، والتي تؤثر في الاتجاهات والسلوك والرأي العام.' }
+                        ], 'علم النفس الاجتماعي')
+                    ]
+                },
+                {
+                    title: 'Fields of Psychology (5-7) · مجالات علم النفس',
+                    cards: [
+                        card('5- Personality Psychology', [
+                            { en: 'Psychologists who study each individual\'s unique qualities and differences between other individuals.', ar: 'علماء النفس الذين يدرسون السمات الفريدة لكل فرد والاختلافات بينه وبين الأفراد الآخرين.' }
+                        ], 'علم نفس الشخصية'),
+                        card('6- Clinical Psychology', [
+                            { en: 'Apply psychological principles to the diagnosis and treatment of emotional and behavioral problems, mental illness, juvenile delinquency, criminal behavior, drug addiction, mental retardation, marital and family conflict.', ar: 'تطبيق المبادئ النفسية في تشخيص وعلاج المشكلات العاطفية والسلوكية، والأمراض العقلية، وجنوح الأحداث، والسلوك الإجرامي، وإدمان المخدرات، والتخلف العقلي، والنزاعات الزوجية والأسرية.' }
+                        ], 'علم النفس السريري'),
+                        card('7- Forensic Psychology', [
+                            { en: 'Psychologists who work within the legal and judicial systems. They may consult with police departments and prisons, to increase the understanding of human problems.', ar: 'علماء النفس الذين يعملون ضمن الأنظمة القانونية والقضائية. قد يقدمون المشورة لأقسام الشرطة والسجون، لزيادة فهم المشكلات البشرية.' }
+                        ], 'علم النفس الجنائي')
+                    ]
+                },
+                {
+                    title: 'Psychology In Relation To Medicine (Part 1) · علم النفس والطب',
+                    cards: [
+                        card('1- Behavioral Manifestation of Medical Illness', [
+                            { en: 'Some physical diseases and general medical conditions are presented with <span class="highlight-text">changes in behavior</span>.', ar: 'بعض الأمراض الجسدية والحالات الطبية العامة تظهر مصحوبة <span class="highlight-text">بتغيرات في السلوك</span>.' },
+                            { en: 'In many diseases of aging there are changes in behavior.', ar: 'في العديد من أمراض الشيخوخة تحدث تغيرات في السلوك.' },
+                            { en: 'In diseases of the brain, changes in behavior arise from damage to localized brain regions.', ar: 'في أمراض الدماغ، تنشأ التغيرات في السلوك من تلف في مناطق معينة من الدماغ.' }
+                        ], 'المظاهر السلوكية للمرض الطبي'),
+                        card('2- Human Behavior in the Etiology of Medical Problems', [
+                            { en: 'Many physical illnesses arise from <span class="highlight-text">what people do to themselves</span>.', ar: 'العديد من الأمراض الجسدية تنشأ مما <span class="highlight-text">يفعله الناس بأنفسهم</span>.' },
+                            { en: 'Human behavior such as smoking and reckless driving can result in serious and often fatal medical problems.', ar: 'السلوك البشري مثل التدخين والقيادة المتهورة يمكن أن يؤدي إلى مشاكل طبية خطيرة وغالباً مميتة.' }
+                        ], 'دور السلوك البشري في مسببات المشكلات الطبية')
+                    ]
+                },
+                {
+                    title: 'Psychology In Relation To Medicine (Part 2) · علم النفس والطب',
+                    cards: [
+                        card('3- Understanding Nurse/Doctor-Patient Relations', [
+                            { en: 'The relation between the Nurse/doctor and the patient lies at the <span class="highlight-text">heart of all medicine</span>.', ar: 'العلاقة بين الممرض/الطبيب والمريض تقع في <span class="highlight-text">قلب جميع ممارسات الطب</span>.' },
+                            { en: 'The quality of communication between doctor and patient can determine not only what problems are discussed but also the degree to which patients adhere to treatment.', ar: 'جودة التواصل بين الطبيب والمريض لا تحدد فقط المشكلات التي تتم مناقشتها، بل أيضاً درجة التزام المرضى بالعلاج.' }
+                        ], 'العلاقة بين الطبيب/الممرض والمريض'),
+                        card('4- Patient Response and Coping to Illness', [
+                            { en: 'Serious medical illnesses require <span class="highlight-text">psychological and social adjustment</span>.', ar: 'الأمراض الطبية الخطيرة تتطلب <span class="highlight-text">تكيفاً نفسياً واجتماعياً</span>.' }
+                        ], 'استجابة المريض والتكيف مع المرض'),
+                        card('5- Psychological Approaches in Treatment of Physical Illness', [
+                            { en: '<span class="highlight-text">Behavioral medicine</span> is concerned with the application of psychological approaches for treatment of physical disorders.', ar: '<span class="highlight-text">يهتم الطب السلوكي</span> بتطبيق المناهج النفسية لعلاج الاضطرابات الجسدية.' },
+                            { en: 'Such methods as talk, relaxation, emotional expression and direct behavior modification are used to treat hypertension, headache and pain.', ar: 'تُستخدم طرق مثل الحديث والاسترخاء والتعبير العاطفي وتعديل السلوك المباشر لعلاج ارتفاع ضغط الدم والصداع والألم.' },
+                            { en: 'Also some problems, such as respiratory and cardiovascular diseases could be affected by changing behavior such as stopping smoking, exercise and healthy diet.', ar: 'أيضاً بعض المشكلات، مثل أمراض الجهاز التنفسي والقلب والأوعية الدموية، يمكن أن تتأثر بتغيير السلوك مثل الإقلاع عن التدخين وممارسة الرياضة والنظام الغذائي الصحي.' }
+                        ], 'المناهج النفسية في علاج المرض الجسدي')
+                    ]
+                }
+            ]
+        };
+
+        // ================================================================
+        //  DATA: LECTURE 2 — BRAIN AND BEHAVIOR
+        // ================================================================
+        const brainData = {
+            titleEn: 'Lecture 2',
+            titleAr: 'المحاضرة الثانية',
+            titleNameEn: 'Brain and Behavior',
+            titleNameAr: 'الدماغ والسلوك',
+            slides: [
+                {
+                    title: 'Introduction: The Nervous System · مقدمة: الجهاز العصبي',
+                    cards: [
+                        card('Functional Units of the Nervous System', [
+                            { en: 'The nervous system is a set of functional units classified as <span class="highlight-text">sensory, motor, and association areas</span>.', ar: 'الجهاز العصبي عبارة عن مجموعة من الوحدات الوظيفية تصنف إلى <span class="highlight-text">مناطق حسية وحركية ومناطق ارتباط</span>.' }
+                        ], 'الوحدات الوظيفية للجهاز العصبي')
+                    ]
+                },
+                {
+                    title: 'Sensory Systems · الأنظمة الحسية',
+                    cards: [
+                        card('Sensory Systems', [
+                            { en: 'Create an internal representation of the external world.', ar: 'تكوين تمثيل داخلي للعالم الخارجي.' },
+                            { en: 'A separate map is formed for each sensory modality.', ar: 'تتكون خريطة منفصلة لكل نمط حسي.' },
+                            { en: 'Sensory areas are areas of the cerebral cortex that receive impulses from sense receptors.', ar: 'المناطق الحسية هي مناطق القشرة الدماغية التي تستقبل النبضات من مستقبلات الحس.' }
+                        ], 'الأنظمة الحسية'),
+                        card('Sensory Pathways & Cortical Areas', [
+                            { en: 'Receptor cells respond to environmental stimuli and send impulses along sensory nerve fibers to the spinal cord, through the brain stem, to the thalamus, then to sensory areas.', ar: 'تستجيب الخلايا المستقبلة للمثيرات البيئية وترسل النبضات عبر الألياف العصبية الحسية إلى الحبل الشوكي، وعبر جذع الدماغ، إلى المهاد، ثم إلى المناطق الحسية.' },
+                            { en: 'Visual impulses end in the <span class="highlight-text">occipital lobe</span> (visual area).', ar: 'تنتهي النبضات البصرية في <span class="highlight-text">الفص القذالي</span> (المنطقة البصرية).' },
+                            { en: 'Auditory impulses end in the <span class="highlight-text">temporal lobe</span> (auditory area).', ar: 'تنتهي النبضات السمعية في <span class="highlight-text">الفص الصدغي</span> (المنطقة السمعية).' },
+                            { en: 'Body senses (touch, pressure, pain) send impulses to the front of the <span class="highlight-text">parietal lobe</span>, where body regions are mapped with different ratios.', ar: 'ترسل أحاسيس الجسم (اللمس، الضغط، الألم) نبضات إلى مقدمة <span class="highlight-text">الفص الجداري</span>، حيث تُرسم مناطق الجسم بنسب مختلفة.' },
+                            { en: 'Highly sensitive areas such as the face, lips, and fingers are over-represented in the body sense area.', ar: 'المناطق عالية الحساسية مثل الوجه والشفاه والأصابع تكون ممثلة بشكل مفرط في منطقة حس الجسم.' }
+                        ], 'المسارات الحسية والمناطق القشرية')
+                    ]
+                },
+                {
+                    title: 'Motor Systems & Association Areas · الأنظمة الحركية ومناطق الارتباط',
+                    cards: [
+                        card('Motor Systems', [
+                            { en: 'Enable persons to manipulate their environment and influence others’ behavior through communication.', ar: 'تمكّن الفرد من التعامل مع بيئته والتأثير في سلوك الآخرين من خلال التواصل.' },
+                            { en: 'Motor area controls voluntary movement.', ar: 'المنطقة الحركية تتحكم في الحركة الإرادية.' },
+                            { en: 'The decision of whether or not one should move is probably made toward the front of the <span class="highlight-text">frontal lobe</span>.', ar: 'قرار ما إذا كان ينبغي التحرك أم لا يُتخذ على الأرجح في مقدمة <span class="highlight-text">الفص الجبهي</span>.' }
+                        ], 'الأنظمة الحركية'),
+                        card('Association Areas', [
+                            { en: 'The remaining areas of the cerebrum are called association areas.', ar: 'المناطق المتبقية من المخ تُسمى مناطق الارتباط.' },
+                            { en: 'They are three: <span class="highlight-text">frontal, parietal, and temporal</span>.', ar: 'وهي ثلاث: <span class="highlight-text">الجبهي والجداري والصدغي</span>.' },
+                            { en: 'There is <span class="highlight-text">no occipital association area</span>.', ar: '<span class="highlight-text">لا توجد منطقة ارتباط قذالية</span>.' }
+                        ], 'مناطق الارتباط')
+                    ]
+                },
+                {
+                    title: 'Cerebral Cortex & Lobes · القشرة الدماغية والفصوص',
+                    cards: [
+                        card('Cerebral Cortex (Cerebrum)', [
+                            { en: 'Large convoluted outer covering of the brain; seat of cognitive functioning and voluntary action.', ar: 'غطاء خارجي كبير متعرج للدماغ؛ مقر الوظائف المعرفية والفعل الإرادي.' },
+                            { en: 'Formed of two symmetrical hemispheres (right & left) separated by a deep fissure running from front to back.', ar: 'يتكون من نصفين متماثلين (أيمن وأيسر) يفصل بينهما شق عميق يمتد من الأمام إلى الخلف.' },
+                            { en: 'Each cerebral hemisphere is formed of four lobes.', ar: 'يتكون كل نصف كرة مخية من أربعة فصوص.' }
+                        ], 'القشرة الدماغية (المخ)'),
+                        card('Frontal Lobe Functions', [
+                            { en: 'Voluntary movement', ar: 'الحركة الإرادية' },
+                            { en: 'Language production (left) and motor prosody (right)', ar: 'إنتاج اللغة (اليسار) والتنغيم الحركي (اليمين)' },
+                            { en: 'Motivation', ar: 'الدافعية' },
+                            { en: 'Regulation of autonomic nervous system and control of emotion', ar: 'تنظيم الجهاز العصبي اللاإرادي والتحكم في الانفعال' },
+                            { en: 'Executive function (capacity to carry out solutions, make decisions, and plan)', ar: 'الوظائف التنفيذية (القدرة على تنفيذ الحلول واتخاذ القرارات والتخطيط)' }
+                        ], 'وظائف الفص الجبهي'),
+                        card('Temporal Lobe Functions', [
+                            { en: 'Audition', ar: 'السمع' },
+                            { en: 'Memory', ar: 'الذاكرة' },
+                            { en: 'Emotion', ar: 'الانفعال' },
+                            { en: 'Sensory prosody (right)', ar: 'التنغيم الحسي (اليمين)' },
+                            { en: 'Language comprehension (left)', ar: 'فهم اللغة (اليسار)' },
+                            { en: 'Integration of all sensory modalities in relation to emotional', ar: 'تكامل جميع الأنماط الحسية فيما يتعلق بالانفعال' }
+                        ], 'وظائف الفص الصدغي'),
+                        card('Parietal Lobe Functions', [
+                            { en: 'Tactile sensation', ar: 'الإحساس اللمسي' },
+                            { en: 'Visuospatial function (right)', ar: 'الوظيفة البصرية المكانية (اليمين)' },
+                            { en: 'Reading (left)', ar: 'القراءة (اليسار)' },
+                            { en: 'Calculation (left)', ar: 'الحساب (اليسار)' }
+                        ], 'وظائف الفص الجداري'),
+                        card('Occipital Lobe Functions', [
+                            { en: 'Vision', ar: 'الإبصار' },
+                            { en: 'Visual perception', ar: 'الإدراك البصري' }
+                        ], 'وظائف الفص القذالي')
+                    ]
+                },
+                {
+                    title: 'Summary of Brain Lobes & Structures · ملخص الفصوص والتراكيب',
+                    cards: [
+                        tableCard('Brain Lobes and Structures', `
+                            <table class="info-table">
+                                <thead><tr><th>Structure</th><th>Functions</th></tr></thead>
+                                <tbody>
+                                    <tr><td>${cell('Frontal Lobe','الفص الجبهي')}</td><td>${cell('Voluntary movement; planning; intellect; problem solving; abstract reasoning','حركة إرادية؛ تخطيط؛ ذكاء؛ حل المشكلات؛ تفكير مجرد')}</td></tr>
+                                    <tr><td>${cell('Parietal Lobe','الفص الجداري')}</td><td>${cell('Touch perception; movement control; manipulation of objects','إدراك اللمس؛ التحكم في الحركة؛ التعامل مع الأشياء')}</td></tr>
+                                    <tr><td>${cell('Temporal Lobe','الفص الصدغي')}</td><td>${cell('Long-term memory; speech comprehension; object perception; face recognition; hearing','ذاكرة طويلة المدى؛ فهم الكلام؛ إدراك الأشياء؛ التعرف على الوجوه؛ السمع')}</td></tr>
+                                    <tr><td>${cell('Occipital Lobe','الفص القذالي')}</td><td>${cell('Visual reception; local orientation; shape perception','استقبال بصري؛ التوجه المكاني؛ إدراك الشكل')}</td></tr>
+                                    <tr><td>${cell('Cerebellum','المخيخ')}</td><td>${cell('Coordination; balance; reflex motor acts','التنسيق؛ التوازن؛ الأفعال الحركية الانعكاسية')}</td></tr>
+                                    <tr><td>${cell('Brain Stem','جذع الدماغ')}</td><td>${cell('Conduction; tract for pain, temperature, and pressure sensations','التوصيل؛ مسار إحساسات الألم ودرجة الحرارة والضغط')}</td></tr>
+                                </tbody>
+                            </table>
+                        `, 'فصوص الدماغ وتراكيبه')
+                    ]
+                },
+                {
+                    title: 'Limbic System, Hypothalamus, Thalamus & RAS · الجهاز الحوفي وما تحت المهاد والمهاد والجهاز الشبكي المنشط',
+                    cards: [
+                        card('Limbic System', [
+                            { en: 'A collection of subcortical structures including the amygdala, septal area, and hippocampus.', ar: 'مجموعة من التراكيب تحت القشرية تشمل اللوزة الدماغية والمنطقة الحاجزية والحصين.' },
+                            { en: 'Involved in emotional and motivational reactions, sexual and eating behavior.', ar: 'تشارك في التفاعلات الانفعالية والدافعية والسلوك الجنسي والغذائي.' },
+                            { en: 'Hippocampus is responsible for transfer of memories to long-term storage.', ar: 'الحصين مسؤول عن نقل الذكريات إلى التخزين طويل المدى.' }
+                        ], 'الجهاز الحوفي'),
+                        card('Hypothalamus', [
+                            { en: 'Small structure near the center of the brain; considered part of the limbic system.', ar: 'تركيب صغير قرب مركز الدماغ؛ يُعتبر جزءاً من الجهاز الحوفي.' },
+                            { en: 'Involved in feeding, drinking, temperature and sleep regulation, and regulation of the endocrine and autonomic systems.', ar: 'يشارك في تنظيم التغذية والشرب ودرجة الحرارة والنوم، وتنظيم الجهازين الصماوي واللاإرادي.' }
+                        ], 'ما تحت المهاد'),
+                        card('Thalamus', [
+                            { en: 'Final sensory relay station that projects sensory fibers to their proper location in the cerebrum.', ar: 'محطة الترحيل الحسية النهائية التي توجّه الألياف الحسية إلى موقعها المناسب في المخ.' },
+                            { en: 'May be involved in regulating sleep-wake cycles.', ar: 'قد يشارك في تنظيم دورات النوم واليقظة.' },
+                            { en: 'Sensory messages from the lower body, eyes, ears, and other senses (except smell) pass through the thalamus.', ar: 'تمر الرسائل الحسية من الجزء السفلي من الجسم والعينين والأذنين والحواس الأخرى (ما عدا الشم) عبر المهاد.' }
+                        ], 'المهاد'),
+                        card('Reticular Activating System (RAS)', [
+                            { en: 'A network of nerve fibers extending from the brain stem to the cerebrum.', ar: 'شبكة من الألياف العصبية تمتد من جذع الدماغ إلى المخ.' },
+                            { en: 'Involved in one’s level of arousal or activation.', ar: 'يشارك في مستوى الاستثارة أو التنشيط لدى الفرد.' },
+                            { en: 'Acts like a valve/filter that allows sensory messages to pass from lower centers to higher centers or shuts them off partially or totally.', ar: 'يعمل مثل صمام/مرشح يسمح بمرور الرسائل الحسية من المراكز الدنيا إلى المراكز العليا أو يغلقها جزئياً أو كلياً.' }
+                        ], 'الجهاز الشبكي المنشط (RAS)')
+                    ]
+                }
+            ]
+        };
+
+        // ================================================================
+        //  DATA: LECTURE 3 — PERSONALITY
+        // ================================================================
+        const personalityData = {
+            titleEn: 'Lecture 3',
+            titleAr: 'المحاضرة الثالثة',
+            titleNameEn: 'Personality',
+            titleNameAr: 'الشخصية',
+            slides: [
+                {
+                    title: 'Chapter Outline · محتويات الفصل',
+                    cards: [
+                        card('Chapter Outline', [
+                            { en: '1- Definitions', ar: '1- التعريفات' },
+                            { en: '2- Factors affecting personality development', ar: '2- العوامل المؤثرة في نمو الشخصية' },
+                            { en: '3- Variables determine the individual behavior', ar: '3- المتغيرات التي تحدد سلوك الفرد' }
+                        ], 'محتويات الفصل')
+                    ]
+                },
+                {
+                    title: 'Definitions · التعريفات',
+                    cards: [
+                        card('Personality', [
+                            { en: 'Personality is the <span class="highlight-text">total quality of an individual\'s behavior</span> as shown in his characteristic habits, thought and expressions.', ar: 'الشخصية هي <span class="highlight-text">جودة السلوك الكلية للفرد</span> كما تظهر في عاداته المميزة وتفكيره وتعبيراته.' }
+                        ], 'الشخصية'),
+                        card('Character', [
+                            { en: 'Character refers mostly to the conduct, which can be called <span class="highlight-text">right or wrong</span> that meets or fails to meet accepted social standards.', ar: 'يشير الطبع/الخلق غالباً إلى السلوك، الذي يمكن وصفه بأنه <span class="highlight-text">صحيح أو خاطئ</span>، ويتوافق أو لا يتوافق مع المعايير الاجتماعية المقبولة.' }
+                        ], 'الطبع/الخلق'),
+                        card('Personality Traits', [
+                            { en: 'Personality traits are some particular type of behavior which characterizes the individual in a wide range of his activities and which is <span class="highlight-text">fairly consistent over a period of time</span>.', ar: 'سمات الشخصية هي نوع معين من السلوك يميز الفرد في مجموعة واسعة من أنشطته ويكون <span class="highlight-text">ثابتاً إلى حد كبير على مدى فترة من الزمن</span>.' }
+                        ], 'سمات الشخصية')
+                    ]
+                },
+                {
+                    title: 'Factors Affecting Personality Development (1-2) · العوامل المؤثرة في نمو الشخصية',
+                    cards: [
+                        card('1- Biological Factors', [
+                            { en: 'This includes the general health, physical, genetic, <span class="highlight-text">chemical and endocrinal factors</span>.', ar: 'يشمل ذلك الصحة العامة والعوامل الجسدية والوراثية و<span class="highlight-text">الكيميائية والغدد الصماء</span>.' },
+                            { en: 'The chemical substances which circulate in the blood may <span class="highlight-text">affect the brain and thus the behavior</span> of the individual.', ar: 'المواد الكيميائية التي تدور في الدم قد <span class="highlight-text">تؤثر على الدماغ وبالتالي على سلوك</span> الفرد.' }
+                        ], '1- العوامل البيولوجية'),
+                        card('2- Geographical Factors', [
+                            { en: 'There are <span class="highlight-text">different personality traits in different parts of the world</span>.', ar: 'توجد <span class="highlight-text">سمات شخصية مختلفة في أجزاء مختلفة من العالم</span>.' },
+                            { en: 'We hold a number of <span class="highlight-text">ready-made impressions</span> of radical characters or stereotypes.', ar: 'لدينا عدد من <span class="highlight-text">الانطباعات الجاهزة</span> عن الشخصيات الجذرية أو الصور النمطية.' }
+                        ], '2- العوامل الجغرافية')
+                    ]
+                },
+                {
+                    title: 'Social Factors · العوامل الاجتماعية',
+                    cards: [
+                        card('3- Social Factors', [
+                            { en: 'a- <span class="highlight-text">Order of birth</span>: the eldest child has a different personality from the youngest. Also the only child will develop different traits.', ar: 'أ- <span class="highlight-text">ترتيب الولادة</span>: الطفل الأكبر له شخصية مختلفة عن الأصغر. كما أن الطفل الوحيد سيطور سمات مختلفة.' },
+                            { en: 'b- Role of the family: if the parents are overcautious and protective, the child will develop a <span class="highlight-text">dependent personality</span>.', ar: 'ب- دور الأسرة: إذا كان الوالدان مفرطين في الحذر والحماية، فسيطور الطفل <span class="highlight-text">شخصية معتمدة</span>.' },
+                            { en: 'If the parents are lacking in love and hard in punishment, the child develops a <span class="highlight-text">defensive, negativistic personality</span>.', ar: 'إذا كان الوالدان يفتقران إلى الحب ويستخدمان العقاب القاسي، فسيطور الطفل <span class="highlight-text">شخصية دفاعية سلبية</span>.' },
+                            { en: 'c- The school also has a role in <span class="highlight-text">forming the personality</span>.', ar: 'ج- للمدرسة أيضاً دور في <span class="highlight-text">تشكيل الشخصية</span>.' }
+                        ], '3- العوامل الاجتماعية')
+                    ]
+                },
+                {
+                    title: 'Prenatal Effects · تأثيرات ما قبل الولادة',
+                    cards: [
+                        card('4- Prenatal Effects', [
+                            { en: '<span class="highlight-text">Stress of mothers during pregnancy</span> could lead to unforthcomingness of the subsequent child, namely timidity, mousiness, and a lack of actual assertiveness.', ar: '<span class="highlight-text">ضغط الأم أثناء الحمل</span> قد يؤدي إلى عدم اجتماعية الطفل اللاحق، أي الخجل والانطواء وضعف الحزم الفعلي.' },
+                            { en: 'Drug intake: <span class="highlight-text">barbiturates or amphetamines</span> taken by the mother during her pregnancy can affect the developing fetus, not to cause macroscopic abnormalities alone, but also in affecting the finer differentiation of the CNS so that the behavior of the grown offspring will be influenced.', ar: 'تعاطي الأدوية: <span class="highlight-text">الباربيتورات أو الأمفيتامينات</span> التي تتناولها الأم أثناء الحمل يمكن أن تؤثر على الجنين النامي، ليس فقط لإحداث تشوهات كبيرة، بل أيضاً للتأثير على التمايز الدقيق للجهاز العصبي المركزي بحيث يتأثر سلوك الذرية عند الكبر.' }
+                        ], '4- تأثيرات ما قبل الولادة')
+                    ]
+                },
+                {
+                    title: 'Delivery & Postnatal Factors · عوامل الولادة وما بعدها',
+                    cards: [
+                        card('Hypoxia and Low Birth Weight', [
+                            { en: '<span class="highlight-text">Hypoxia during delivery and low birth weight</span>: numerous studies have shown that babies with low birth weight frequently have <span class="highlight-text">behavioral disorders</span>.', ar: '<span class="highlight-text">نقص الأكسجين أثناء الولادة وانخفاض وزن الولادة</span>: أظهرت دراسات عديدة أن الأطفال ذوي الوزن المنخفض عند الولادة غالباً ما يعانون من <span class="highlight-text">اضطرابات سلوكية</span>.' }
+                        ], 'نقص الأكسجين وانخفاض وزن الولادة'),
+                        card('Postnatal Events', [
+                            { en: 'Postnatal events such as <span class="highlight-text">CNS infections, trauma</span>, etc. influence behavior.', ar: 'الأحداث بعد الولادة مثل <span class="highlight-text">عدوى الجهاز العصبي المركزي والصدمات</span> وغيرها تؤثر على السلوك.' }
+                        ], 'أحداث ما بعد الولادة'),
+                        card('Mental Manifestations & Medical Illness', [
+                            { en: 'Mental manifestations are associated with medical illness such as <span class="highlight-text">endocrinal, metabolic, autoimmune, electrolyte imbalance</span> under the effect of some drugs.', ar: 'ترتبط المظاهر العقلية بالأمراض الطبية مثل <span class="highlight-text">الاضطرابات الغددية والأيضية والمناعية الذاتية واختلال توازن الإلكتروليتات</span> تحت تأثير بعض الأدوية.' }
+                        ], 'المظاهر العقلية والمرض الطبي')
+                    ]
+                },
+                {
+                    title: 'Variables Determining Individual Behavior · المتغيرات التي تحدد سلوك الفرد',
+                    cards: [
+                        card('Variables Determine Individual Behavior', [
+                            { en: '1. <span class="highlight-text">Competencies</span>: intellectual abilities, social skills and other abilities.', ar: '1. <span class="highlight-text">الكفاءات</span>: القدرات الفكرية والمهارات الاجتماعية وقدرات أخرى.' },
+                            { en: '2. <span class="highlight-text">Cognitive Strategies</span>: the selective attention to information and the way of organizing it into meaningful units.', ar: '2. <span class="highlight-text">الاستراتيجيات المعرفية</span>: الانتباه الانتقائي للمعلومات وطريقة تنظيمها في وحدات ذات معنى.' },
+                            { en: '3. <span class="highlight-text">Outcome expectancy</span>: expectations about the consequences of different behavior and the meaning of certain stimuli.', ar: '3. <span class="highlight-text">توقع النتيجة</span>: التوقعات حول عواقب السلوك المختلف ومعنى مثيرات معينة.' },
+                            { en: '4. <span class="highlight-text">Subjective value of the outcome</span>: if individuals have similar expectations, they may choose to behave differently because of differences in subjective values of the outcome they expect.', ar: '4. <span class="highlight-text">القيمة الذاتية للنتيجة</span>: إذا كان لدى الأفراد توقعات متشابهة، فقد يختارون التصرف بشكل مختلف بسبب الاختلافات في القيم الذاتية للنتيجة التي يتوقعونها.' },
+                            { en: '5. <span class="highlight-text">Self-regulatory systems and plans</span>: rules guiding behavior, self-imposed rewards for success or punishment for failure and the ability to plan and execute steps leading to a goal, will lead to differences in behavior.', ar: '5. <span class="highlight-text">الأنظمة والخطط التنظيمية الذاتية</span>: القواعد التي توجه السلوك، والمكافآت المفروضة ذاتياً على النجاح أو العقاب على الفشل، والقدرة على التخطيط وتنفيذ الخطوات المؤدية إلى الهدف، ستؤدي إلى اختلافات في السلوك.' }
+                        ], 'المتغيرات التي تحدد سلوك الفرد')
+                    ]
+                },
+                {
+                    title: 'Self-Regulatory Systems and Plans · الأنظمة والخطط التنظيمية الذاتية',
+                    cards: [
+                        card('Self-Regulatory Systems and Plans', [
+                            { en: '<span class="highlight-text">Self-regulatory systems and plans</span>', ar: '<span class="highlight-text">الأنظمة والخطط التنظيمية الذاتية</span>' },
+                            { en: 'The <span class="highlight-text">absence of rules</span> guiding behavior, self-imposed rewards for success or punishment for failure, and the ability to plan and execute steps leading to a goal, can lead to <span class="highlight-text">differences in behavior</span>.', ar: '<span class="highlight-text">إن عدم وجود قواعد</span> تحكم السلوك، والمكافآت المفروضة على الذات عند النجاح أو العقاب عند الفشل، والقدرة على التخطيط وتنفيذ الخطوات المؤدية إلى الهدف، من شأنه أن يؤدي إلى <span class="highlight-text">اختلافات في السلوك</span>.' }
+                        ], 'الأنظمة والخطط التنظيمية الذاتية')
+                    ]
+                }
+            ]
+        };
+
+        // ================================================================
+        //  DATA: LECTURE 4 — STATES OF CONSCIOUSNESS
+        // ================================================================
+        const consciousnessData = {
+            titleEn: 'Lecture 4',
+            titleAr: 'المحاضرة الرابعة',
+            titleNameEn: 'States of Consciousness',
+            titleNameAr: 'حالات الوعي',
+            slides: [
+                {
+                    title: 'Outlines · المحتويات',
+                    cards: [
+                        card('Outlines', [
+                            { en: '1. Consciousness', ar: '1. الوعي' },
+                            { en: '2. Sleep problems and disorders', ar: '2. مشاكل واضطرابات النوم' }
+                        ], 'المحتويات')
+                    ]
+                },
+                {
+                    title: 'Consciousness · الوعي',
+                    cards: [
+                        card('Consciousness', [
+                            { en: 'Consciousness describes our <span class="highlight-text">awareness of internal and external stimuli</span>.', ar: 'يصف الوعي <span class="highlight-text">إدراكنا للمثيرات الداخلية والخارجية</span>.' },
+                            { en: 'Awareness of internal stimuli includes: <span class="highlight-text">feeling pain, hunger, thirst, sleepiness</span>, and being aware of our thoughts and emotions.', ar: 'يشمل الوعي بالمثيرات الداخلية: <span class="highlight-text">الشعور بالألم والجوع والعطش والنعاس</span> والوعي بأفكارنا ومشاعرنا.' },
+                            { en: 'Awareness of external stimuli includes: <span class="highlight-text">seeing the light from the sun, feeling the warmth, and hearing the voice of a friend</span>.', ar: 'يشمل الوعي بالمثيرات الخارجية: <span class="highlight-text">رؤية ضوء الشمس، والشعور بالدفء، وسماع صوت صديق</span>.' }
+                        ], 'الوعي')
+                    ]
+                },
+                {
+                    title: 'Sleep and Wakefulness · النوم واليقظة',
+                    cards: [
+                        card('Sleep', [
+                            { en: 'Sleep is a state marked by <span class="highlight-text">relatively low levels of physical activity</span> and <span class="highlight-text">reduced sensory awareness</span> that is distinct from periods of rest.', ar: 'النوم حالة تتميز <span class="highlight-text">بمستويات منخفضة نسبياً من النشاط البدني</span> و<span class="highlight-text">انخفاض الوعي الحسي</span>، وهو مختلف عن فترات الراحة.' }
+                        ], 'النوم'),
+                        card('Wakefulness', [
+                            { en: 'Wakefulness is characterized by <span class="highlight-text">high levels of sensory awareness, thought, and behavior</span>.', ar: 'تتميز اليقظة <span class="highlight-text">بمستويات عالية من الوعي الحسي والتفكير والسلوك</span>.' },
+                            { en: 'Other states of consciousness include <span class="highlight-text">daydreaming, intoxication, and unconsciousness due to anesthesia</span>.', ar: 'تشمل حالات الوعي الأخرى <span class="highlight-text">أحلام اليقظة، والتسمم، وفقدان الوعي بسبب التخدير</span>.' }
+                        ], 'اليقظة')
+                    ]
+                },
+                {
+                    title: 'Sleep Problems and Disorders: Insomnia & Parasomnia · مشاكل واضطرابات النوم',
+                    cards: [
+                        card('1- Insomnia', [
+                            { en: 'Insomnia is a <span class="highlight-text">consistent difficulty in falling or staying asleep</span> and is the <span class="highlight-text">most common of the sleep disorders</span>.', ar: 'الأرق هو <span class="highlight-text">صعوبة مستمرة في النوم أو الاستمرار فيه</span>، وهو <span class="highlight-text">أكثر اضطرابات النوم شيوعاً</span>.' },
+                            { en: 'Individuals may <span class="highlight-text">wake up several times during the night</span> only to find that they have difficulty getting back to sleep.', ar: 'قد <span class="highlight-text">يستيقظ الأفراد عدة مرات أثناء الليل</span> ليجدوا صعوبة في العودة إلى النوم.' }
+                        ], '1- الأرق'),
+                        card('2- Parasomnia', [
+                            { en: 'A parasomnia is one of a group of sleep disorders in which <span class="highlight-text">unwanted, disruptive motor activity</span> or experiences during sleep play a role.', ar: 'الباراسومنيا هي مجموعة من اضطرابات النوم التي تلعب فيها <span class="highlight-text">الحركة الحركية أو الخبرات غير المرغوب فيها والمزعجة</span> أثناء النوم دوراً.' }
+                        ], '2- الباراسومنيا')
+                    ]
+                },
+                {
+                    title: 'Other Parasomnias: Sleepwalking & Restless Leg Syndrome · اضطرابات نوم أخرى',
+                    cards: [
+                        card('A. Sleepwalking', [
+                            { en: 'In sleepwalking, the sleeper engages in <span class="highlight-text">relatively complex behaviors</span> ranging from wandering about to driving an automobile.', ar: 'في المشي أثناء النوم، يقوم النائم <span class="highlight-text">بسلوكيات معقدة نسبياً</span> تتراوح من التجول إلى قيادة السيارة.' },
+                            { en: 'During periods of sleepwalking, sleepers often have <span class="highlight-text">their eyes open, but they are not responsive</span> to attempts to communicate with them.', ar: 'خلال فترات المشي أثناء النوم، غالباً ما تكون <span class="highlight-text">أعين النائمين مفتوحة، لكنهم لا يستجيبون</span> لمحاولات التواصل معهم.' },
+                            { en: 'Sleepwalking most often occurs at <span class="highlight-text">any time during a sleep period</span> in some affected individuals.', ar: 'غالباً ما يحدث المشي أثناء النوم في <span class="highlight-text">أي وقت خلال فترة النوم</span> لدى بعض المصابين.' }
+                        ], 'أ. المشي أثناء النوم'),
+                        card('B. Restless Leg Syndrome', [
+                            { en: '<span class="highlight-text">Uncomfortable sensations in the legs</span> during periods of inactivity or when trying to fall asleep.', ar: '<span class="highlight-text">إحساس غير مريح في الساقين</span> خلال فترات الخمول أو عند محاولة النوم.' },
+                            { en: 'This discomfort is <span class="highlight-text">relieved by deliberately moving the legs</span>, which contributes to difficulty in falling or staying asleep.', ar: 'يخف هذا الانزعاج <span class="highlight-text">عن طريق تحريك الساقين عمداً</span>، مما يساهم في صعوبة النوم أو الاستمرار فيه.' },
+                            { en: 'Restless leg syndrome is common with a number of other medical diagnoses, such as <span class="highlight-text">chronic kidney disease and diabetes</span>.', ar: 'يشيع متلازمة تململ الساقين مع عدد من التشخيصات الطبية الأخرى، مثل <span class="highlight-text">مرض الكلى المزمن والسكري</span>.' }
+                        ], 'ب. متلازمة تململ الساقين')
+                    ]
+                },
+                {
+                    title: 'Night Terrors · الذعر الليلي',
+                    cards: [
+                        card('C. Night Terrors', [
+                            { en: 'Night terrors result in a <span class="highlight-text">sense of panic</span> in the sufferer and are often accompanied by <span class="highlight-text">screams and attempts to escape</span> from the immediate environment.', ar: 'تؤدي نوبات الذعر الليلي إلى <span class="highlight-text">شعور بالذعر</span> لدى المصاب، وغالباً ما تكون مصحوبة <span class="highlight-text">بالصراخ ومحاولات الهروب</span> من البيئة المحيطة.' },
+                            { en: 'Although individuals suffering from night terrors <span class="highlight-text">appear to be awake</span>, they generally have <span class="highlight-text">no memories of the events</span> that occurred.', ar: 'على الرغم من أن المصابين بالذعر الليلي <span class="highlight-text">يبدون مستيقظين</span>، إلا أنهم عادة <span class="highlight-text">لا يتذكرون الأحداث</span> التي حدثت.' },
+                            { en: 'Individuals suffering from night terrors will <span class="highlight-text">fall back asleep again within a short time</span>.', ar: 'عادة ما <span class="highlight-text">يعود المصابون بالذعر الليلي للنوم مرة أخرى خلال فترة قصيرة</span>.' },
+                            { en: 'Generally, <span class="highlight-text">treatment for night terrors is unnecessary</span> unless there is some underlying medical or psychological condition.', ar: 'بشكل عام، <span class="highlight-text">لا يكون علاج الذعر الليلي ضرورياً</span> إلا إذا كان هناك حالة طبية أو نفسية كامنة.' }
+                        ], 'ج. الذعر الليلي')
+                    ]
+                },
+                {
+                    title: 'Sleep Apnea · انقطاع النفس النومي',
+                    cards: [
+                        card('3- Sleep Apnea', [
+                            { en: 'Sleep apnea is defined by episodes during which a <span class="highlight-text">sleeper\'s breathing stops</span>.', ar: 'يُعرّف انقطاع النفس النومي بنوبات <span class="highlight-text">يتوقف فيها تنفس النائم</span>.' },
+                            { en: 'These episodes can last <span class="highlight-text">10–20 seconds or longer</span>.', ar: 'يمكن أن تستمر هذه النوبات <span class="highlight-text">من 10 إلى 20 ثانية أو أكثر</span>.' },
+                            { en: 'While individuals suffering from sleep apnea may not be aware of these repeated disruptions in sleep, they do experience <span class="highlight-text">increased levels of fatigue</span>.', ar: 'على الرغم من أن المصابين بانقطاع النفس النومي قد لا يدركون هذه الانقطاعات المتكررة في النوم، إلا أنهم يعانون من <span class="highlight-text">مستويات متزايدة من التعب</span>.' },
+                            { en: 'Many individuals diagnosed with sleep apnea first seek treatment because their sleeping partners indicate that they <span class="highlight-text">snore loudly</span> and/or <span class="highlight-text">stop breathing for extended periods of time</span> while sleeping.', ar: 'كثير من الأفراد الذين يتم تشخيصهم بانقطاع النفس النومي يلتمسون العلاج أولاً لأن شركاء النوم يشيرون إلى أنهم <span class="highlight-text">يشخرون بصوت عالٍ</span> و/أو <span class="highlight-text">يتوقفون عن التنفس لفترات طويلة</span> أثناء النوم.' },
+                            { en: 'Sleep apnea is <span class="highlight-text">much more common in overweight people</span> and is often associated with <span class="highlight-text">loud snoring</span>.', ar: 'انقطاع النفس النومي <span class="highlight-text">أكثر شيوعاً بكثير لدى الأشخاص الذين يعانون من زيادة الوزن</span> وغالباً ما يرتبط <span class="highlight-text">بالشخير العالي</span>.' },
+                            { en: 'Sleep apnea may <span class="highlight-text">exacerbate cardiovascular disease</span>.', ar: 'قد يؤدي انقطاع النفس النومي إلى <span class="highlight-text">تفاقم أمراض القلب والأوعية الدموية</span>.' },
+                            { en: '<span class="highlight-text">Anyone, regardless of weight, who snores loudly or gasps for air</span> while sleeping, should be checked for sleep apnea.', ar: '<span class="highlight-text">أي شخص، بغض النظر عن وزنه، يشخر بصوت عالٍ أو يلهث طلباً للهواء</span> أثناء النوم، يجب فحصه بحثاً عن انقطاع النفس النومي.' }
+                        ], '3- انقطاع النفس النومي')
+                    ]
+                }
+            ]
+        };
+
+        // ================================================================
+        //  BUILD APP
+        // ================================================================
+        const slidesData = {
+            psychology: psychologyData,
+            brain: brainData,
+            personality: personalityData,
+            consciousness: consciousnessData
+        };
+        const sectionOrder = ['psychology', 'brain', 'personality', 'consciousness'];
+
+        function renderSlideContent(slide) {
+            if (slide.cards && Array.isArray(slide.cards)) {
+                return createSlideHTML(slide.title, slide.cards.join(''));
+            }
+            return createSlideHTML(slide.title, '');
+        }
+
+        function buildApp() {
+            const tabsContainer = document.getElementById('tabsContainer');
+            const sectionsContainer = document.getElementById('sectionsContainer');
+
+            sectionOrder.forEach((secId, index) => {
+                const sec = slidesData[secId];
+                if (!sec) return;
+
+                const tab = document.createElement('button');
+                tab.className = 'tab-btn' + (index === 0 ? ' active' : '');
+                tab.innerHTML = `
+                    <span class="en">${sec.titleEn}</span>
+                    <span class="en-sub">${sec.titleNameEn}</span>
+                    <span class="ar">${sec.titleAr}</span>
+                    <span class="ar-sub">${sec.titleNameAr}</span>
+                `;
+                tab.onclick = () => switchTab(secId, tab);
+                tabsContainer.appendChild(tab);
+
+                const cardEl = document.createElement('div');
+                cardEl.className = 'card' + (index === 0 ? ' active' : '');
+                cardEl.id = `section-${secId}`;
+
+                const slidesHTML = sec.slides.map(s => renderSlideContent(s)).join('');
+                const totalSlides = sec.slides.length;
+
+                cardEl.innerHTML = `
+                    <h2>
+                        <span class="lec-num">${sec.titleEn}</span>
+                        <span class="lec-title-en">${sec.titleNameEn}</span>
+                        <span class="lec-num-ar">${sec.titleAr}</span>
+                        <span class="lec-title-ar">${sec.titleNameAr}</span>
+                    </h2>
+                    <div style="text-align:center; margin-bottom:12px;">
+                        <button class="pdf-btn" onclick="downloadPDF('${secId}')">📄 تحميل المحاضرة PDF</button>
+                    </div>
+                    <div class="slide-container" id="slideContainer-${secId}">
+                        <div class="slide-progress">
+                            <span style="font-weight:600;">التقدم</span>
+                            <div class="bar"><div class="fill" style="width:0%;"></div></div>
+                            <span class="count">1 / ${totalSlides}</span>
+                        </div>
+                        ${slidesHTML}
+                        <div class="slide-nav">
+                            <button class="btn-nav prev" onclick="goToSlide('${secId}', 'slideContainer-${secId}', slideState['${secId}'].current - 1)">السابق</button>
+                            <button class="btn-nav next primary" onclick="goToSlide('${secId}', 'slideContainer-${secId}', slideState['${secId}'].current + 1)">التالي</button>
+                        </div>
+                    </div>
+                `;
+                sectionsContainer.appendChild(cardEl);
+
+                initSlideState(secId, totalSlides);
+                setTimeout(() => renderSlide(secId, `slideContainer-${secId}`), 50);
+            });
+
+            setTimeout(() => initTTS(), 200);
+        }
+
+        function switchTab(secId, tabEl) {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+            document.getElementById(`section-${secId}`).classList.add('active');
+            tabEl.classList.add('active');
+        }
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        applyTheme(localStorage.getItem('theme') || 'dark');
+        buildApp();
+
+        window.goToSlide = goToSlide;
+        window.slideState = slideState;
+        window.toggleTheme = toggleTheme;
+        window.toggleCardTranslation = toggleCardTranslation;
+        window.downloadPDF = downloadPDF;
+    </script>
+</body>
+</html>
